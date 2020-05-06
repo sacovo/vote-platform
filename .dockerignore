@@ -1,0 +1,4 @@
+storage/
+db.sqlite3
+.git/
+

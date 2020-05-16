@@ -129,3 +129,17 @@ STATIC_ROOT = 'storage/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'storage/media/'
+
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_HOST = os.environ.get('SMTP_HOST', 'localhost')
+EMAIL_PORT = int(os.environ.get('SMTP_PORT', '25'))
+
+EMAIL_USE_TLS = int(os.environ.get('SMTP_TLS', '0'))
+EMAIL_USE_SSL = int(os.environ.get('SMTP_SSL', '0'))
+
+EMAIL_HOST_USER = os.environ.get('SMTP_USER', 'user')
+EMAIL_HOST_PASSWORD = os.environ.get('SMTP_PASSWORD', 'pw')
+
+DEFAULT_FROM_EMAIL = os.environ.get('FROM_EMAIL', 'webmaster@localhost')

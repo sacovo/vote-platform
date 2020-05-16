@@ -15,7 +15,7 @@ RUN apt-get update && \
 # install dependencies
 RUN pip install --upgrade pip
 COPY ./requirements.txt /usr/src/app/requirements.txt
-RUN pip install -r requirements.txt && pip install gunicorn
+RUN pip install -r requirements.txt && pip install gunicorn uvicorn
 
 # create directory for the app user
 # create the app user

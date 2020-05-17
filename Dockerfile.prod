@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:buster
+FROM python:buster as builder
 
 # set work directory
 WORKDIR /usr/src/app
@@ -14,13 +14,17 @@ RUN apt-get update && \
 
 # install dependencies
 RUN pip install --upgrade pip
-COPY ./requirements.txt /usr/src/app/requirements.txt
-RUN pip install -r requirements.txt && pip install gunicorn uvicorn
+RUN pip install flake8
+COPY . /usr/src/app/
+COPY ./requirements.txt .
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt 
+RUN pip wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements.prod.txt 
+
+FROM python:slim
 
 # create directory for the app user
 # create the app user
 RUN useradd -ms /bin/bash app
-
 # create the appropriate directories
 ENV HOME=/home/app
 ENV APP_HOME=/home/app/web
@@ -28,6 +32,13 @@ RUN mkdir $APP_HOME
 RUN mkdir -p $APP_HOME/storage/static
 RUN mkdir -p $APP_HOME/storage/media
 WORKDIR $APP_HOME
+
+# Deps
+RUN apt-get update && apt-get upgrade
+COPY --from=builder /usr/src/app/wheels /wheels
+COPY --from=builder /usr/src/app/requirements.txt .
+RUN pip install --upgrade pip
+RUN pip install --no-cache /wheels/*
 
 # copy entrypoint-prod.sh
 COPY ./entrypoint.prod.sh $APP_HOME

@@ -19,9 +19,6 @@ RUN pip wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements.pro
 
 FROM python:slim
 
-RUN apt-get update && \
-  apt-get install -y \
-    netcat
 # create directory for the app user
 # create the app user
 RUN useradd -ms /bin/bash app
@@ -34,7 +31,8 @@ RUN mkdir -p $APP_HOME/storage/media
 WORKDIR $APP_HOME
 
 # Deps
-RUN apt-get update && apt-get upgrade
+RUN apt-get update && apt-get upgrade && apt-get install -y \
+    netcat
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
 RUN pip install --upgrade pip

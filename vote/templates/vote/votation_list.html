@@ -1,0 +1,46 @@
+{% extends 'vote/base.html' %}
+{% load i18n %}
+
+{% block title %}
+{% trans 'Abstimmungen' %}
+{% endblock %}
+
+{% block content %}
+<h1>{% trans 'Abstimmungen' %}</h1>
+<table>
+  <thead>
+    <tr>
+      <th>
+        {% trans 'Abstimmung' %}
+      </th>
+      <th>
+        {% trans 'Status' %}
+      </th>
+      <th>
+        {% trans 'Ende' %}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for votation in votation_list %}
+    <tr>
+      <td>
+        <a href="{{votation.get_absolute_url}}">
+          {{votation.title}}
+        </a>
+      </td>
+      <td>
+        {{votation.state}}
+      </td>
+      <td>
+        {% if votation.is_open %}
+        {{votation.end_date|date:"d.m.Y H:i"}}
+        {% else %}
+        -
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

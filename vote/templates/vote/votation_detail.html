@@ -1,0 +1,59 @@
+{% extends 'vote/base.html' %}
+{% load i18n %}
+
+{% block title %}
+{{votation.title}}
+{% endblock %}
+
+{% block content %}
+<h1>{{votation.title}}</h1>
+{% if votation.is_open %}
+<p>
+<a href="{% url 'vote' pk=votation.pk %}">
+  {% trans 'Abstimmen' %}
+</a>
+</p>
+{% endif %}
+{% if votation.is_closed %}
+<h2>{% trans 'Resultate' %}</h2>
+<h3>Total</h3>
+<table>
+  <tbody>
+    {% for result in votation.get_results %}
+    <tr>
+      <th>{{result.0}}</th>
+      <td>{{result.1}}</th>
+    </tr>
+    {% endfor %}
+    <tr>
+      <th>{% trans 'Total' %}</th>
+      <td>{{votation.vote_set.count }}</td>
+    </tr>
+  </tbody>
+</table>
+<h3>{% trans 'Stimmen' %}</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Sektion</th>
+      <th>Wahl</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for vote in votation.vote_set.all %}
+    <tr>
+      <td>{{vote.delegate.secret_start}}-...-{{vote.delegate.secret_end}}</td>
+      <td>{{vote.delegate.section}}</td>
+      <td>{{vote.vote}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+<p>
+<a href="{% url 'votation-list' %}">
+  {% trans 'Zurück zu allen Abstimmungen' %} 
+</a>
+</p>
+{% endblock %}

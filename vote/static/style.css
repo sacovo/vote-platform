@@ -1,0 +1,94 @@
+
+@import url('klima.css');
+@import url('montserrat.css');
+
+:root {
+  --red: #ED2E38;
+  --anthrazit: #262626;
+  --violett: #6217AD;
+  --green: #4FA743;
+  --orange: #FFB100;
+  --white: #FFFFFF;
+
+  --primary-color: var(--red);
+  --light-color: var(--white);
+  --tamaro-primary-color: var(--primary-color);
+  --tamaro-bg-color: var(--background-color);
+  --tamaro-primary-color__hover: #d52932;
+
+  --text-color: var(--anthrazit);
+  --background-color:var(--white);
+  --highlight-color: var(--primary-color);
+
+  --footer-background-color: var(--anthrazit);
+  --footer-text-color: var(--white);
+
+  --container-width: min(1180px, 94vw);
+  --container-outer-width: min(1200px, 100vw);
+
+  --outer-padding: calc((100vw - var(--container-outer-width))/2);
+  --inner-padding: calc((100vw - var(--container-width))/2);
+
+  --navbar-height: 60px;
+  --navbar-offset: 80px;
+
+  --body-font: 'Klima', sans-serif;
+  --title-font: 'Montserrat', sans-serif;
+  --button-font: 'Klima', sans-serif;
+  --menu-font: 'Klima', sans-serif;
+
+  --menu-weight: 900;
+  --button-weight: 900;
+
+  --box-shadow: rgba(0, 0, 0, 0.4) 0 4px 8px;
+}
+body {
+  display: flex;
+  font-size: 16px;
+  padding: 1em;
+  background: var(--red);
+  font-size: clamp(16px, 2vw, 22px);
+  font-family: var(--body-font);
+  color: var(--text-color);
+} 
+h1, h2, h3, h4, h5, h6, header {
+  font-family: var(--title-font);
+  font-weight: 800;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.4em;
+  hyphens: auto;
+}
+main {
+  max-width: 720px;
+  min-width: min(calc(100vw - 2em), 720px);
+  margin: auto;
+  background: white;
+  padding: 1em;
+  box-shadow: var(--box-shadow);
+  border-radius: 3px;
+}
+
+label {
+  display: block;
+  margin-top: 0.5em;
+}
+
+div.buttons {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
+
+
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid #999;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+

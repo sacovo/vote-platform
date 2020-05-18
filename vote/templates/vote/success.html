@@ -1,0 +1,16 @@
+{% extends 'vote/base.html' %}
+{% load i18n %}
+{% block title %}
+{% trans 'Stimme erflogreich abgegeben' %}
+{% endblock %}
+{% block content %}
+<h1>{{vote.votation.title}}</h1>
+<p>
+  {% trans 'Deine Stimme: ' %} {{vote.option}}
+</p>
+
+<a href="{{vote.votation.get_absolute_url}}">
+  {% trans 'Zur Abstimmung' %}
+</a>
+
+{% endblock %}

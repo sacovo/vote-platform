@@ -1,0 +1,16 @@
+{% extends 'vote/base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+<h1>{{votation.title}}</h1>
+<h2>{% trans 'Abstimmen' %}</h2>
+<form action="" method="post">
+  {% csrf_token %}
+  {{form}}
+  <div class="buttons">
+  <input type="submit" value="{% trans 'Absenden' %}">
+  </div>
+</form>
+  <a href="{{votation.get_absolute_url}}">{% trans 'Zurück' %}</a>
+{% endblock %}

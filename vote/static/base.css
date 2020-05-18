@@ -1,0 +1,59 @@
+:root {
+  --red: #ED2E38;
+  --anthrazit: #262626;
+  --violett: #6217AD;
+  --green: #4FA743;
+  --orange: #FFB100;
+  --white: #FFFFFF;
+
+  --primary-color: var(--red);
+  --light-color: var(--white);
+  --tamaro-primary-color: var(--primary-color);
+  --tamaro-bg-color: var(--background-color);
+  --tamaro-primary-color__hover: #d52932;
+
+  --text-color: var(--anthrazit);
+  --background-color:var(--white);
+  --highlight-color: var(--primary-color);
+
+  --container-width: min(780px, 96vw);
+  --container-outer-width: min(780px, 100vw);
+
+  --outer-padding: calc((100vw - var(--container-outer-width))/2);
+  --inner-padding: calc((100vw - var(--container-width))/2);
+
+
+  --body-font: 'Klima', sans-serif;
+  --title-font: 'Montserrat', sans-serif;
+
+  --box-shadow: rgba(0, 0, 0, 0.4) 0 4px 8px;
+}
+
+body {
+  font-size: 16px;
+  font-size: clamp(16px, 2vw, 22px);
+  font-family: var(--body-font);
+  background-color: var(--red);
+  color: var(--text-color);
+} 
+
+h1, h2, h3, h4, h5, h6, header {
+  font-family: var(--title-font);
+  font-weight: 800;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 0.4em;
+  hyphens: auto;
+}
+
+header > a {
+  text-decoration: none;
+}
+
+h5 {
+  font-style: italic;
+}
+
+h4, h5, h6 {
+  font-weight: 400;
+}

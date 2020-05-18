@@ -8,9 +8,6 @@ WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN apt-get update && \
-  apt-get install -y \
-    netcat
 
 # install dependencies
 RUN pip install --upgrade pip
@@ -22,6 +19,9 @@ RUN pip wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements.pro
 
 FROM python:slim
 
+RUN apt-get update && \
+  apt-get install -y \
+    netcat
 # create directory for the app user
 # create the app user
 RUN useradd -ms /bin/bash app

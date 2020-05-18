@@ -1,6 +1,9 @@
 {% extends 'vote/base.html' %}
-
+{% trans i18n %}
 {% load i18n %}
+{% block title %}
+{% trans 'Stimme abgeben' %} - {{votation.title}}
+{% endblock %}
 
 {% block content %}
 <h1>{{votation.title}}</h1>

@@ -92,8 +92,8 @@ td, th {
 }
 
 
-a.button, button {
-  padding: 0.5em 1em;
+a.button, button, input[type="submit"] {
+  padding: 0.8em 1.5em;
   border: none;
   border-radius: 3px;
   box-shadow: var(--box-shadow);
@@ -109,6 +109,6 @@ a.button, button {
   margin: 0.5em 0;
 }
 
-a.button:hover, button:hover {
+a.button:hover, button:hover, input[type="submit"]:hover {
   filter: brightness(0.9);
 }

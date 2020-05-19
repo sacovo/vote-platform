@@ -1,6 +1,9 @@
 from django.contrib import admin
+from io import StringIO
+from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.http import HttpResponse
+from django.urls import path
 import csv
 from django.utils import timezone
 
@@ -15,6 +18,8 @@ class DelegateAdmin(admin.ModelAdmin):
         'section',
     ]
 
+    change_list_template = 'vote/delegate_changelist.html'
+
     readonly_fields = ['secret']
 
     list_filter = [
@@ -26,6 +31,43 @@ class DelegateAdmin(admin.ModelAdmin):
     ]
 
     actions = ['send_secrets', 'export_section_codes']
+
+    def get_urls(self):
+        urlpatterns = super().get_urls()
+        return [
+            path(
+                'import/',
+                self.admin_site.admin_view(
+                self.import_delegates
+                ),
+                name="vote_delegate_import"
+            )
+        ] + urlpatterns
+
+    def import_delegates(self, request):
+        if request.method == 'POST':
+            reader = csv.reader(
+                StringIO(request.FILES['csv_file'].read().decode())
+            )
+            next(reader)
+
+            for row in reader:
+                if len(row) < 4 or row[3] == '':
+                    continue
+
+                section, _ = models.Section.objects.get_or_create(
+                    name=row[0]
+                )
+                models.Delegate.objects.get_or_create(
+                    email=row[3],
+                    defaults={
+                        'first_name': row[1],
+                        'last_name': row[2],
+                        'section': section,
+                    }
+                )
+            return redirect('admin:vote_delegate_changelist')
+        return render(request, 'vote/import_delegates.html', {})
 
     def send_secrets(self, request, queryset):
         for delegate in queryset:

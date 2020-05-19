@@ -1,0 +1,9 @@
+{% extends 'vote/base.html' %}
+
+{% block content %}
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <input type="file" name="csv_file">
+  <input type="submit" value="Import">
+</form>
+{% endblock %}

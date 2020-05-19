@@ -35,6 +35,7 @@ class Delegate(models.Model):
     def secret_start(self):
         return self.secret[:8]
 
+
 class Votation(models.Model):
     title = models.CharField(max_length=180)
     options = models.TextField()

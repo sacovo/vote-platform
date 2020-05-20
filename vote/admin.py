@@ -1,15 +1,16 @@
+import csv
 import uuid
-from django.contrib import admin
 from io import StringIO
-from django.shortcuts import render, redirect
+
+from django.contrib import admin, messages
 from django.core.mail import send_mail
 from django.http import HttpResponse
+from django.shortcuts import redirect, render
 from django.urls import path
-import csv
 from django.utils import timezone
-from django.contrib import messages
 
 from vote import models
+
 # Register your models here.
 
 

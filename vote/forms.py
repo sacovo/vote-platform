@@ -1,5 +1,7 @@
 from django import forms
+
 from vote import models
+
 
 class VoteForm(forms.Form):
     option = forms.ChoiceField(required=True)

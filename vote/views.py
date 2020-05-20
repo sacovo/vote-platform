@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import get_object_or_404, redirect, render, reverse
 
-from vote.forms import VoteForm
 from vote import models
+from vote.forms import VoteForm
+
 # Create your views here.
 
 

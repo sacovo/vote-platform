@@ -51,6 +51,7 @@ body {
   font-family: var(--body-font);
   color: var(--text-color);
 } 
+
 h1, h2, h3, h4, h5, h6, header {
   font-family: var(--title-font);
   font-weight: 800;
@@ -59,8 +60,9 @@ h1, h2, h3, h4, h5, h6, header {
   margin-bottom: 0.4em;
   hyphens: auto;
 }
+
 main {
-  max-width: 720px;
+  max-width: min(860px, 98vw);
   min-width: min(calc(100vw - 2em), 720px);
   margin: auto;
   background: white;

@@ -43,6 +43,8 @@ class Votation(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
 
+    block = models.CharField(max_length=20)
+
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -85,7 +87,7 @@ class Votation(models.Model):
         )
 
     class Meta:
-        ordering = ['start_date']
+        ordering = ['block', 'title']
 
 
 class Vote(models.Model):
@@ -97,6 +99,8 @@ class Vote(models.Model):
         Delegate, models.CASCADE
     )
 
+    secret = models.CharField(max_length=40)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     vote = models.CharField(max_length=12)
@@ -106,3 +110,12 @@ class Vote(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+    def public_view(self):
+        return f'{self.secret_start()}-...-{self.secret_end()}'
+
+    def secret_end(self):
+        return self.secret[-12:]
+
+    def secret_start(self):
+        return self.secret[:8]

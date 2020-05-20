@@ -4,9 +4,9 @@
 {% trans 'Stimme erflogreich abgegeben' %}
 {% endblock %}
 {% block content %}
-<h1>{{vote.votation.title}}</h1>
+<h1>{% trans 'Erfolgreich abgestimmt' %}</h1>
 <p>
-  {% trans 'Deine Stimme: ' %} {{vote.option}}
+  {% trans 'Deine Stimme:' %} {{vote.vote}}
 </p>
 
 <a href="{{vote.votation.get_absolute_url}}">

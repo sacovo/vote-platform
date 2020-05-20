@@ -28,16 +28,24 @@ def vote_action(request, pk):
     if request.method == 'POST':
         form = VoteForm(request.POST, votation=votation)
 
-        if form.is_valid():
+        if form.is_valid() and request.POST.get('confirm') == '1':
             option = form.cleaned_data['option']
             delegate = form.cleaned_data['delegate']
             vote = models.Vote.objects.create(
                 votation=votation,
                 delegate=delegate,
-                vote=option
+                vote=option,
+                secret=form.cleaned_data['code'],
             )
             return render(request, 'vote/success.html', {
                 'vote': vote,
+            })
+
+        if form.is_valid():
+            return render(request, 'vote/confirm.html', {
+                'data': form.cleaned_data,
+                'form': form,
+                'votation': votation,
             })
 
     return render(request, 'vote/vote_form.html', {

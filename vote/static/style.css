@@ -91,6 +91,9 @@ td, th {
   text-align: left;
 }
 
+input[type="text"], input[type="email"], input[type="password"]{
+  width: 100%;
+}
 
 a.button, button, input[type="submit"] {
   padding: 0.8em 1.5em;
@@ -111,4 +114,14 @@ a.button, button, input[type="submit"] {
 
 a.button:hover, button:hover, input[type="submit"]:hover {
   filter: brightness(0.9);
+}
+
+table.results {
+  margin-top: 1em;
+  width: 100%;
+}
+
+table#votes {
+  max-height: 600px;
+  overflow-y: auto;
 }

@@ -9,15 +9,18 @@
 <h1>{{votation.title}}</h1>
 {% if votation.is_open %}
 <p>
-<a href="{% url 'vote' pk=votation.pk %}">
+<a href="{% url 'vote' pk=votation.pk %}" class="button">
   {% trans 'Abstimmen' %}
 </a>
 </p>
 {% endif %}
 {% if votation.is_closed %}
-<h2>{% trans 'Resultate' %}</h2>
-<h3>Total</h3>
-<table>
+<h2>{% trans 'Definitive Resultate' %}</h2>
+{% else %}
+<h2>{% trans 'Vorläufige Resultate' %}</h2>
+{% endif %}
+<h3>{% trans 'total' %}</h3>
+<table class="results">
   <tbody>
     {% for result in votation.get_results %}
     <tr>
@@ -32,7 +35,17 @@
   </tbody>
 </table>
 <h3>{% trans 'Stimmen' %}</h3>
-<table>
+<label for="filterCode">
+  {% trans 'Nach Code suchen' %}
+</label>
+<input type="text" id="filterCode" onkeyup="filterTableCodes();">
+
+<label for="filterSection">
+  {% trans 'Nach Sektion suchen' %}
+</label>
+<input type="text" id="filterSection" onkeyup="filterTableSection();">
+
+<table class="results" id="votes">
   <thead>
     <tr>
       <th>Code</th>
@@ -43,17 +56,61 @@
   <tbody>
     {% for vote in votation.vote_set.all %}
     <tr>
-      <td>{{vote.delegate.secret_start}}-...-{{vote.delegate.secret_end}}</td>
+      <td>{{vote.public_view}}</td>
       <td>{{vote.delegate.section}}</td>
       <td>{{vote.vote}}</td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
-{% endif %}
 <p>
 <a href="{% url 'votation-list' %}">
   {% trans 'Zurück zu allen Abstimmungen' %} 
 </a>
 </p>
+<script>
+  function filterTableCodes(){
+    // Declare variables
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("filterCode");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("votes");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+
+  function filterTableSection(){
+    // Declare variables
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("filterSection");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("votes");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+</script>
 {% endblock %}

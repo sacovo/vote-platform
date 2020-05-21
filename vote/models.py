@@ -98,7 +98,7 @@ class Vote(models.Model):
         Votation, models.CASCADE,
     )
 
-    secret = models.CharField(max_length=40)
+    secret = models.CharField(max_length=80)
 
     created_at = models.DateTimeField(auto_now_add=True)
 

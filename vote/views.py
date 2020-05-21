@@ -35,6 +35,7 @@ def vote_action(request, pk):
                 votation=votation,
                 vote=option,
                 secret=form.cleaned_data['code'],
+                section=form.cleaned_data['delegate'].section,
             )
             return render(request, 'vote/success.html', {
                 'vote': vote,

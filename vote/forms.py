@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.hashers import check_password
 
 from vote import models
 
@@ -33,7 +34,7 @@ class VoteForm(forms.Form):
             email=email
         )
 
-        if secret != delegate.secret:
+        if not check_password(secret, delegate.secret):
             raise forms.ValidationError(
                 'Authentication failed!'
             )
@@ -41,7 +42,7 @@ class VoteForm(forms.Form):
             raise forms.ValidationError(
                 'Invalid option!'
             )
-        if self.votation.vote_set.filter(delegate=delegate).exists():
+        if self.votation.vote_set.filter(secret=secret).exists():
             raise forms.ValidationError(
                 'Already voted'
             )

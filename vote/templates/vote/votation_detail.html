@@ -57,7 +57,7 @@
     {% for vote in votation.vote_set.all %}
     <tr>
       <td>{{vote.public_view}}</td>
-      <td>{{vote.delegate.section}}</td>
+      <td>{{vote.section}}</td>
       <td>{{vote.vote}}</td>
     </tr>
     {% endfor %}

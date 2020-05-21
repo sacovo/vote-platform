@@ -31,10 +31,8 @@ def vote_action(request, pk):
 
         if form.is_valid() and request.POST.get('confirm') == '1':
             option = form.cleaned_data['option']
-            delegate = form.cleaned_data['delegate']
             vote = models.Vote.objects.create(
                 votation=votation,
-                delegate=delegate,
                 vote=option,
                 secret=form.cleaned_data['code'],
             )

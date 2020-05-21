@@ -1,11 +1,20 @@
-import uuid
+import secrets
 
+from django.contrib.auth.hashers import make_password
 from django.db import models
 from django.shortcuts import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
+
+
+def public_view(secret):
+    return secret[:10] + "..." + secret[-10:]
+
+
+def generate_password():
+    return make_password(secrets.token_urlsafe(40))
 
 class Section(models.Model):
     name = models.CharField(max_length=180)
@@ -20,21 +29,13 @@ class Delegate(models.Model):
     street = models.CharField(max_length=120, blank=True)
     city = models.CharField(max_length=120, blank=True)
     email = models.EmailField(unique=True)
+    phone = models.CharField(max_length=20, blank=True)
 
     section = models.ForeignKey(Section, models.CASCADE)
-    secret = models.CharField(max_length=40, default=uuid.uuid4)
+    secret = models.CharField(max_length=100, default=generate_password)
 
     def __str__(self):
         return self.first_name
-
-    def public_view(self):
-        return f'{self.secret_start()}-...-{self.secret_end()}'
-
-    def secret_end(self):
-        return self.secret[-12:]
-
-    def secret_start(self):
-        return self.secret[:8]
 
 
 class Votation(models.Model):
@@ -96,15 +97,13 @@ class Vote(models.Model):
         Votation, models.CASCADE,
     )
 
-    delegate = models.ForeignKey(
-        Delegate, models.CASCADE
-    )
-
     secret = models.CharField(max_length=40)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
-    vote = models.CharField(max_length=12)
+    vote = models.CharField(max_length=40)
+
+    section = models.ForeignKey(Section, models.CASCADE)
 
     def __str__(self):
         return f'{self.votation.title}: {self.vote}'
@@ -113,10 +112,4 @@ class Vote(models.Model):
         ordering = ['-created_at']
 
     def public_view(self):
-        return f'{self.secret_start()}-...-{self.secret_end()}'
-
-    def secret_end(self):
-        return self.secret[-12:]
-
-    def secret_start(self):
-        return self.secret[:8]
+        return public_view(self.secret)

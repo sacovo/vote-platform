@@ -82,7 +82,7 @@ class DelegateAdmin(admin.ModelAdmin):
         'section'
     ]
 
-    actions = ['new_codes']
+    actions = ['new_codes', 'new_code_unsafe']
 
     def get_urls(self):
         urlpatterns = super().get_urls()
@@ -125,6 +125,20 @@ class DelegateAdmin(admin.ModelAdmin):
         return new_codes(request, queryset)
 
     new_codes.short_description = "Generate and send new codes"
+
+    def new_code_unsafe(self, request, queryset):
+        if queryset.count() != 1:
+            return
+        delegate = queryset[0]
+        secret = secrets.token_urlsafe(40)
+        delegate.secret = make_password(secret)
+        delegate.save()
+        messages.add_message(
+            request,
+            messages.INFO,
+            f'new secret: {secret}'
+        )
+    new_code_unsafe.short_description = 'Generate a new code and display it'
 
 
 @admin.register(models.Section)

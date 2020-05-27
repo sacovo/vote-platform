@@ -1,92 +1,116 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# This file was generated from translations (1).xlsx
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-19 20:04+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
-"MIME-Version: 1.0\n"
+"POT-Creation-Date: 2020-05-27 07:41+0000\n"
+"PO-Revision-Date: 2020-05-27 09:40+0200\n"
+"Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-#: vote/models.py:64
+"Generated-By: xls-to-po 1.0\n"
+
+#: vote/models.py:69
 msgid "Geschlossen"
-msgstr ""
+msgstr "Fermé"
 
-#: vote/models.py:66
+#: vote/models.py:71
 msgid "Offen"
+msgstr "Ouvert"
+
+#: vote/models.py:72
+msgid "Abgeschlossen"
+msgstr "Terminé"
+
+#: vote/templates/vote/confirm.html:5 vote/templates/vote/vote_form.html:5
+msgid "Stimme abgeben"
+msgstr "Voter"
+
+#: vote/templates/vote/confirm.html:10
+msgid "Stimme bestätigen"
 msgstr ""
 
-#: vote/models.py:67
-msgid "Abgeschlossen"
+#: vote/templates/vote/confirm.html:13
+msgid "Deine E-Mail:"
 msgstr ""
+
+#: vote/templates/vote/confirm.html:14 vote/templates/vote/success.html:9
+msgid "Deine Stimme:"
+msgstr "Ton vote :"
+
+#: vote/templates/vote/confirm.html:20
+msgid "Abgabe bestätigen"
+msgstr ""
+
+#: vote/templates/vote/confirm.html:24 vote/templates/vote/vote_form.html:18
+msgid "Zurück"
+msgstr "Retour"
 
 #: vote/templates/vote/success.html:4
 msgid "Stimme erflogreich abgegeben"
-msgstr ""
+msgstr "Ton vote a bien été transmis"
 
-#: vote/templates/vote/success.html:9
-msgid "Deine Stimme: "
+#: vote/templates/vote/success.html:7
+msgid "Erfolgreich abgestimmt"
 msgstr ""
 
 #: vote/templates/vote/success.html:13
 msgid "Zur Abstimmung"
-msgstr ""
+msgstr "Vers la votation"
 
 #: vote/templates/vote/votation_detail.html:13
 #: vote/templates/vote/vote_form.html:10
 msgid "Abstimmen"
-msgstr ""
+msgstr "Voter"
 
 #: vote/templates/vote/votation_detail.html:18
-msgid "Resultate"
-msgstr ""
+msgid "Definitive Resultate"
+msgstr "Résultats"
 
-#: vote/templates/vote/votation_detail.html:29
+#: vote/templates/vote/votation_detail.html:20
+msgid "Vorläufige Resultate"
+msgstr "Résultats"
+
+#: vote/templates/vote/votation_detail.html:22
+msgid "total"
+msgstr "Total"
+
+#: vote/templates/vote/votation_detail.html:32
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
-#: vote/templates/vote/votation_detail.html:34
+#: vote/templates/vote/votation_detail.html:37
 msgid "Stimmen"
+msgstr "Voix"
+
+#: vote/templates/vote/votation_detail.html:39
+msgid "Nach Code suchen"
 msgstr ""
 
-#: vote/templates/vote/votation_detail.html:56
-msgid "Zurück zu allen Abstimmungen"
+#: vote/templates/vote/votation_detail.html:44
+msgid "Nach Sektion suchen"
 msgstr ""
+
+#: vote/templates/vote/votation_detail.html:68
+msgid "Zurück zu allen Abstimmungen"
+msgstr "Retour à tous les votes"
 
 #: vote/templates/vote/votation_list.html:5
 #: vote/templates/vote/votation_list.html:9
 msgid "Abstimmungen"
-msgstr ""
+msgstr "Votes"
 
 #: vote/templates/vote/votation_list.html:14
 msgid "Abstimmung"
-msgstr ""
+msgstr "Vote"
 
 #: vote/templates/vote/votation_list.html:17
 msgid "Status"
-msgstr ""
+msgstr "Statut"
 
 #: vote/templates/vote/votation_list.html:20
 msgid "Ende"
-msgstr ""
-
-#: vote/templates/vote/vote_form.html:5
-msgid "Stimme abgeben"
-msgstr ""
+msgstr "Fin"
 
 #: vote/templates/vote/vote_form.html:15
 msgid "Absenden"
-msgstr ""
-
-#: vote/templates/vote/vote_form.html:18
-msgid "Zurück"
-msgstr ""
+msgstr "Envoyer"

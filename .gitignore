@@ -132,8 +132,11 @@ dmypy.json
 
 node_modules/
 
-.env.prod
 first_run.lock
 
 .vim
 
+
+# Docker-compose
+docker-compose.hosts.yml
+.env.prod

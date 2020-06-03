@@ -14,7 +14,6 @@ from vote import models
 
 # Register your models here.
 
-
 def export_section_codes(request, queryset):
     field_names = ['section', 'secret']
     response = HttpResponse(
@@ -33,17 +32,21 @@ def export_section_codes(request, queryset):
     return response
 
 
-def send_secret_to(delegate, secret):
+def send_secret_to(delegate, secret, mail_text):
     send_mail(
-        "[JUSO E-Vote Tool]: Dein Abstimmungscode",
-        f"Code: {secret}",
-        'evote@juso.ch',
+        "Dein Identifikationscode | Ton code d’identification | Il tuo codice di identificazione",
+        mail_text.format(
+            secret=secret,
+            first_name=delegate.first_name,
+        ),
+        'e-vote@juso.ch',
         [delegate.email],
     )
 
 
 def new_codes(request, queryset):
     codes = []
+    mail_text = open('mail-text.txt', 'r').read()
     for delegate in queryset:
         secret = secrets.token_urlsafe(40)
         delegate.secret = make_password(secret)
@@ -52,7 +55,7 @@ def new_codes(request, queryset):
             'code': f'{secret[:10]}...{secret[-10:]}',
             'section': delegate.section,
         })
-        send_secret_to(delegate, secret)
+        send_secret_to(delegate, secret, mail_text)
     messages.add_message(
         request,
         messages.INFO,
@@ -108,13 +111,13 @@ class DelegateAdmin(admin.ModelAdmin):
                     continue
 
                 section, _ = models.Section.objects.get_or_create(
-                    name=row[0]
+                    name=row[0].strip()
                 )
                 models.Delegate.objects.get_or_create(
-                    email=row[3],
+                    email=row[3].strip(),
                     defaults={
-                        'first_name': row[1],
-                        'last_name': row[2],
+                        'first_name': row[1].strip(),
+                        'last_name': row[2].strip(),
                         'section': section,
                     }
                 )

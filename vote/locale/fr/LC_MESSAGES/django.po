@@ -1,9 +1,9 @@
-# This file was generated from translations (1).xlsx
+# This file was generated from translations (2).xlsx
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-27 07:41+0000\n"
-"PO-Revision-Date: 2020-05-27 09:40+0200\n"
+"POT-Creation-Date: 2020-05-29 14:12+0200\n"
+"PO-Revision-Date: 2020-05-29 10:41+0200\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,11 +27,11 @@ msgstr "Voter"
 
 #: vote/templates/vote/confirm.html:10
 msgid "Stimme bestätigen"
-msgstr ""
+msgstr "Confirmer le vote"
 
 #: vote/templates/vote/confirm.html:13
 msgid "Deine E-Mail:"
-msgstr ""
+msgstr "Ton courriel :"
 
 #: vote/templates/vote/confirm.html:14 vote/templates/vote/success.html:9
 msgid "Deine Stimme:"
@@ -39,7 +39,7 @@ msgstr "Ton vote :"
 
 #: vote/templates/vote/confirm.html:20
 msgid "Abgabe bestätigen"
-msgstr ""
+msgstr "Confirmer le dépôt"
 
 #: vote/templates/vote/confirm.html:24 vote/templates/vote/vote_form.html:18
 msgid "Zurück"
@@ -51,7 +51,7 @@ msgstr "Ton vote a bien été transmis"
 
 #: vote/templates/vote/success.html:7
 msgid "Erfolgreich abgestimmt"
-msgstr ""
+msgstr "Vote bien enregistré"
 
 #: vote/templates/vote/success.html:13
 msgid "Zur Abstimmung"
@@ -84,13 +84,17 @@ msgstr "Voix"
 
 #: vote/templates/vote/votation_detail.html:39
 msgid "Nach Code suchen"
-msgstr ""
+msgstr "Chercher par code"
 
-#: vote/templates/vote/votation_detail.html:44
+#: vote/templates/vote/votation_detail.html:42
+msgid "Nur den Anfang deines Codes eingeben"
+msgstr "N'entrez que le début de votre code"
+
+#: vote/templates/vote/votation_detail.html:45
 msgid "Nach Sektion suchen"
-msgstr ""
+msgstr "Chercher par section"
 
-#: vote/templates/vote/votation_detail.html:68
+#: vote/templates/vote/votation_detail.html:69
 msgid "Zurück zu allen Abstimmungen"
 msgstr "Retour à tous les votes"
 

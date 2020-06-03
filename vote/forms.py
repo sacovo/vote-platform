@@ -25,13 +25,13 @@ class VoteForm(forms.Form):
                 'Votation closed!'
             )
 
-        if not models.Delegate.objects.filter(email=email).exists():
+        if not models.Delegate.objects.filter(email__iexact=email).exists():
             raise forms.ValidationError(
                 'Authentication failed!'
             )
 
         delegate = models.Delegate.objects.get(
-            email=email
+            email__iexact=email
         )
 
         if not check_password(secret, delegate.secret):

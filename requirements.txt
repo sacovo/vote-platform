@@ -1,6 +1,6 @@
 asgiref==3.2.7
-Django>=3.0.6
 django-constance==2.6.0
+Django>=3.0.7
 psycopg2-binary
 pytz==2020.1
 redis==3.5.3

@@ -16,5 +16,9 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.env.dev
+  redis:
+    image: redis
+    expose:
+      - 6379
 volumes:
   postgres_data:

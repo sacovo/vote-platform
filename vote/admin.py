@@ -1,6 +1,7 @@
 import csv
 import secrets
 from io import StringIO
+from constance import config
 
 from django.contrib import admin, messages
 from django.contrib.auth.hashers import make_password
@@ -8,6 +9,7 @@ from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import path
+from django.conf import settings
 from django.utils import timezone
 
 from vote import models
@@ -34,12 +36,12 @@ def export_section_codes(request, queryset):
 
 def send_secret_to(delegate, secret, mail_text):
     send_mail(
-        "Dein Identifikationscode | Ton code d’identification | Il tuo codice di identificazione",
-        mail_text.format(
+        config.SUBJECT,
+        config.MAIL_TEXT.format(
             secret=secret,
             first_name=delegate.first_name,
         ),
-        'e-vote@juso.ch',
+        config.DEFAULT_FROM_EMAIL,
         [delegate.email],
     )
 

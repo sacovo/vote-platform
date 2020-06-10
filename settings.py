@@ -37,8 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'constance',
     'vote',
 ]
+
+CONSTANCE_CONFIG = {
+    'SUBJECT': ('E-Vote Identifikationscode', ''),
+    'MAIL_TEXT': ('Mailtext... {secret}', ''),
+    'DEFAULT_FROM_EMAIL': ('info@sp-ps.ch', ''),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -122,6 +129,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+CONSTANCE_BACKEND = 'constance.backends.redisd.RedisBackend'
+
+CONSTANCE_REDIS_CONNECTION = {
+    'host': 'redis',
+    'port': 6379,
+    'db': 0,
+}
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -145,3 +160,4 @@ EMAIL_HOST_USER = os.environ.get('SMTP_USER', 'user')
 EMAIL_HOST_PASSWORD = os.environ.get('SMTP_PASSWORD', 'pw')
 
 DEFAULT_FROM_EMAIL = os.environ.get('FROM_EMAIL', 'webmaster@localhost')
+SUBJECT = os.environ.get('SUBJECT', "Dein Identifikationscode | Ton code d’identification | Il tuo codice di identificazione")

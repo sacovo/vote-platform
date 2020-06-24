@@ -34,7 +34,25 @@ def export_section_codes(request, queryset):
     return response
 
 
-def send_secret_to(delegate, secret, mail_text):
+def export_voted_delegates(request, votation):
+    field_names = ['section', 'first_name', 'last_name', 'email']
+    response = HttpResponse(
+        content_type="text/csv"
+    )
+    filename = timezone.now().strftime('%Y-%d-%m-%H%M-delegates.csv')
+    response['Content-Disposition'] = f'attachment; filename={filename}'
+    writer = csv.writer(response)
+
+    writer.writerow(field_names)
+    for obj in votation.voted.all():
+        writer.writerow(
+            [obj.section.name, obj.first_name, obj.last_name, obj.email]
+        )
+    return response
+
+
+
+def send_secret_to(delegate, secret):
     send_mail(
         config.SUBJECT,
         config.MAIL_TEXT.format(
@@ -48,7 +66,6 @@ def send_secret_to(delegate, secret, mail_text):
 
 def new_codes(request, queryset):
     codes = []
-    mail_text = open('mail-text.txt', 'r').read()
     for delegate in queryset:
         secret = secrets.token_urlsafe(40)
         delegate.secret = make_password(secret)
@@ -57,7 +74,7 @@ def new_codes(request, queryset):
             'code': f'{secret[:10]}...{secret[-10:]}',
             'section': delegate.section,
         })
-        send_secret_to(delegate, secret, mail_text)
+        send_secret_to(delegate, secret)
     messages.add_message(
         request,
         messages.INFO,
@@ -71,6 +88,10 @@ class DelegateAdmin(admin.ModelAdmin):
         'first_name',
         'last_name',
         'section',
+    ]
+
+    search_fields = [
+        "first_name", "last_name", "email"
     ]
 
     change_list_template = 'vote/delegate_changelist.html'
@@ -160,12 +181,14 @@ class VotationAdmin(admin.ModelAdmin):
         'block'
     ]
 
-    actions = ['start_votations', 'end_votations', 'start_votations_new_code']
+    search_fields = ['title']
+
+    actions = ['start_votations', 'end_votations', 'start_votations_new_code', 'postpone_votations', 'export_delegates']
 
     def start_votations(self, request, queryset):
         queryset.update(
             start_date=timezone.now(),
-            end_date=timezone.now() + timezone.timedelta(minutes=10)
+            end_date=timezone.now() + timezone.timedelta(minutes=30)
         )
         messages.add_message(
             request, messages.INFO,
@@ -182,9 +205,23 @@ class VotationAdmin(admin.ModelAdmin):
             end_date=timezone.now()
         )
 
+    def postpone_votations(self, request, queryset):
+        queryset.update(
+            start_date = timezone.now() + timezone.timedelta(days=365),
+            end_date=timezone.now() + timezone.timedelta(days=365, minutes=30),
+        )
+
+    def export_delegates(self, request, queryset):
+        return export_voted_delegates(request, queryset[0])
+
+
 
 @admin.register(models.Vote)
 class VoteAdmin(admin.ModelAdmin):
     list_display = ['votation', 'vote']
 
-    readonly_fields = ['secret', 'vote', 'votation']
+    search_fields = ['secret']
+
+    readonly_fields = ['secret', 'vote', 'votation', 'secret']
+
+    list_filter = ['votation', 'vote']

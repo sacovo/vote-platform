@@ -1,7 +1,4 @@
-asgiref==3.2.7
-django-constance==2.6.0
-Django>=3.0.7
+django-constance
+Django
 psycopg2-binary
-pytz==2020.1
-redis==3.5.3
-sqlparse==0.3.1
+redis

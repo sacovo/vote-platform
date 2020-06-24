@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:buster as builder
+FROM python:slim-buster as builder
 
 # set work directory
 WORKDIR /usr/src/app
@@ -10,11 +10,9 @@ ENV PYTHONUNBUFFERED 1
 
 
 # install dependencies
-RUN pip install --upgrade pip
-RUN pip install flake8
-COPY . /usr/src/app/
 COPY ./requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r requirements.txt 
+COPY ./requirements.prod.txt .
 RUN pip wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements.prod.txt 
 
 FROM python:slim
@@ -35,7 +33,6 @@ RUN apt-get update && apt-get upgrade && apt-get install -y \
     netcat
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
-RUN pip install --upgrade pip
 RUN pip install --no-cache /wheels/*
 
 # copy entrypoint-prod.sh

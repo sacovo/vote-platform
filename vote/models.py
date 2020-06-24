@@ -41,7 +41,10 @@ class Delegate(models.Model):
 
 class Votation(models.Model):
     title = models.CharField(max_length=180)
+    description = models.CharField(max_length=300, blank=True)
     options = models.TextField()
+
+    voted = models.ManyToManyField(Delegate, blank=True)
 
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()

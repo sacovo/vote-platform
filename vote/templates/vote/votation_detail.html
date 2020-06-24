@@ -7,6 +7,9 @@
 
 {% block content %}
 <h1>{{votation.title}}</h1>
+<p>
+{{votation.description}}
+</p>
 {% if votation.is_open %}
 <p>
 <a href="{% url 'vote' pk=votation.pk %}" class="button">

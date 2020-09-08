@@ -181,6 +181,12 @@ class VotationAdmin(admin.ModelAdmin):
         'block'
     ]
 
+    fields = [
+        'title', 'description', 'options',
+        'valid_choices', 'add_empty_lines', 'allow_intermediate',
+        'start_date', 'end_date', 'block'
+    ]
+
     search_fields = ['title']
 
     actions = ['start_votations', 'end_votations', 'start_votations_new_code', 'postpone_votations', 'export_delegates']
@@ -225,3 +231,18 @@ class VoteAdmin(admin.ModelAdmin):
     readonly_fields = ['secret', 'vote', 'votation', 'secret']
 
     list_filter = ['votation', 'vote']
+
+
+class VoteInline(admin.TabularInline):
+    fields = ['vote']
+    model = models.Vote
+    extra = 0
+
+@admin.register(models.VoteSet)
+class VoteSetAdmin(admin.ModelAdmin):
+    inlines=[VoteInline]
+    list_display = ['uuid', 'votation', 'votes', 'checked']
+
+    list_filter = ['votation', 'checked']
+
+    list_editable = ['checked']

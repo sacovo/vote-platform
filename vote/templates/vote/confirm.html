@@ -8,12 +8,21 @@
 {% block content %}
 <h1>{{votation.title}}</h1>
 <h2>{% trans 'Stimme bestätigen' %}</h2>
-<form action="" method="post" editable="false">
+<form action="" method="post" editable="false" class="hide-inputs">
   {% csrf_token %}
   {% trans 'Deine E-Mail:' %} {{form.email.value}}</br>
-  {% trans 'Deine Stimme:'%}  <b>{{form.option.value|upper}}</b></br>
+  {% trans 'Deine Stimme:'%}
+  <ul class="show">
+    {% for option in data.options %}
+    <li>{{option}}</li>
+    {% endfor %}
+  </ul>
   {% for field in form %}
+  {% if field.name == "options" %}
+  {{field}}
+  {% else %}
   <input type="hidden" name="{{field.name}}" value="{{field.value}}">
+  {% endif %}
   {% endfor %}
   <input type="hidden" name="confirm" value="1">
   <div class="buttons">

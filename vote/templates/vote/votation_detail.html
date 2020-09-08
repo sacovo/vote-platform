@@ -22,6 +22,7 @@
 {% else %}
 <h2>{% trans 'Vorläufige Resultate' %}</h2>
 {% endif %}
+{% if votation.is_closed or votation.allow_intermediate %}
 <h3>{% trans 'total' %}</h3>
 <table class="results">
   <tbody>
@@ -33,10 +34,16 @@
     {% endfor %}
     <tr>
       <th>{% trans 'Total' %}</th>
-      <td>{{votation.vote_set.count }}</td>
+      <td>{{votation.vote_count }}</td>
     </tr>
+    <tr>
+      <th>{% trans 'Absolutes Mehr' %}</th>
+      <td>{{votation.absolute_majority}}</td>
   </tbody>
 </table>
+{% else %}
+-
+{% endif %}
 <h3>{% trans 'Stimmen' %}</h3>
 <label for="filterCode">
   {% trans 'Nach Code suchen' %}
@@ -58,7 +65,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for vote in votation.vote_set.all %}
+    {% for vote in votation.checked_votes %}
     <tr>
       <td>{{vote.public_view}}</td>
       <td>{{vote.section}}</td>

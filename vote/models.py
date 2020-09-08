@@ -46,6 +46,10 @@ class Votation(models.Model):
 
     voted = models.ManyToManyField(Delegate, blank=True)
 
+    valid_choices = models.IntegerField(default=1)
+    add_empty_lines = models.BooleanField(default=False)
+    allow_intermediate = models.BooleanField(default=True)
+
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
 
@@ -66,6 +70,10 @@ class Votation(models.Model):
     def get_results(self):
         for option in self.get_options():
             yield option, self.count_votes(option)
+        if self.add_empty_lines:
+            others = self.vote_set.filter(voteset__checked=True).exclude(vote__in=self.get_options()).values_list('vote', flat=True).distinct()
+            for other in others:
+                yield other, self.count_votes(other)
 
     def state(self):
         if self.start_date > timezone.now():
@@ -82,7 +90,16 @@ class Votation(models.Model):
                 self.start_date < timezone.now()
 
     def count_votes(self, option):
-        return self.vote_set.filter(vote=option).count()
+        return self.vote_set.filter(vote=option, voteset__checked=True).count()
+
+    def checked_votes(self):
+        return self.vote_set.filter(voteset__checked=True)
+
+    def vote_count(self):
+        return self.vote_set.filter(voteset__checked=True).count()
+
+    def absolute_majority(self):
+        return int(self.vote_set.filter(voteset__checked=True).count() / self.valid_choices / 2) + 1
 
     def __str__(self):
         return self.title
@@ -105,9 +122,10 @@ class Vote(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
 
-    vote = models.CharField(max_length=40)
+    vote = models.CharField(max_length=80)
 
     section = models.ForeignKey(Section, models.CASCADE)
+    voteset = models.ForeignKey("VoteSet", models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f'{self.votation.title}: {self.vote}'
@@ -117,3 +135,19 @@ class Vote(models.Model):
 
     def public_view(self):
         return public_view(self.secret)
+
+
+class VoteSet(models.Model):
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False
+    )
+    votation = models.ForeignKey(Votation, models.CASCADE)
+    checked = models.BooleanField(default=False)
+
+    def votes(self):
+        return  '[' + ', '.join(self.vote_set.all().values_list('vote', flat=True)) + ']'
+
+    def __str__(self):
+        return self.votation.title + ": " + str(self.id)
+

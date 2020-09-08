@@ -131,3 +131,11 @@ table#votes {
 .help {
   font-size: 0.7em;
 }
+
+.hide-inputs ul {
+  display: none;
+}
+
+.hide-inputs .show {
+  display: block;
+}

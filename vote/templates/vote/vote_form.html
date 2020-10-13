@@ -8,7 +8,7 @@
 {% block content %}
 <h1>{{votation.title}}</h1>
 <h2>{% trans 'Abstimmen' %}</h2>
-<form action="" method="post">
+<form action="" method="post" id="vote-form">
   {% csrf_token %}
   {{form}}
   <div class="buttons">
@@ -19,13 +19,11 @@
 
   <script> 
     document.getElementById('id_code').setAttribute('value', sessionStorage.getItem('secret') || '');
-    document.getElementById('id_code').addEventListener('keyup', (event) => {
-      sessionStorage.setItem('secret', event.target.value);
-    });
-
     document.getElementById('id_email').setAttribute('value', sessionStorage.getItem('email') || '');
-    document.getElementById('id_email').addEventListener('keyup', (event) => {
-      sessionStorage.setItem('email', event.target.value);
+
+    document.getElementById('vote-form').addEventListener('submit', () => {
+      sessionStorage.setItem('email', document.getElementById('id_email').value);
+      sessionStorage.setItem('secret', document.getElementById('id_code').value);
     });
   </script>
   {% endblock %}

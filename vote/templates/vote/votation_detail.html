@@ -33,8 +33,12 @@
     </tr>
     {% endfor %}
     <tr>
-      <th>{% trans 'Total' %}</th>
+      <th>{% trans 'Total Stimmen' %}</th>
       <td>{{votation.vote_count }}</td>
+    </tr>
+    <tr>
+      <th>{% trans 'Total Stimmende' %}</th>
+      <td>{{votation.voter_count }}</td>
     </tr>
     <tr>
       <th>{% trans 'Absolutes Mehr' %}</th>
@@ -51,24 +55,30 @@
 <input type="text" id="filterCode" onkeyup="filterTableCodes();">
 <span class="help">{% trans 'Nur den Anfang deines Codes eingeben' %}</span>
 
+{% if votation.display_sections %}
 <label for="filterSection">
   {% trans 'Nach Sektion suchen' %}
 </label>
 <input type="text" id="filterSection" onkeyup="filterTableSection();">
+{% endif %}
 
 <table class="results" id="votes">
   <thead>
     <tr>
-      <th>Code</th>
-      <th>Sektion</th>
-      <th>Wahl</th>
+      <th>{% trans 'Code' %}</th>
+      {% if votation.display_sections %}
+      <th>{% trans 'Sektion' %}</th>
+      {% endif %}
+      <th>{% trans 'Wahl' %}</th>
     </tr>
   </thead>
   <tbody>
     {% for vote in votation.checked_votes %}
     <tr>
       <td>{{vote.public_view}}</td>
+      {% if votation.display_sections %}
       <td>{{vote.section}}</td>
+      {% endif %}
       <td>{{vote.vote}}</td>
     </tr>
     {% endfor %}

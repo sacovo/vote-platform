@@ -47,8 +47,10 @@ class Votation(models.Model):
     voted = models.ManyToManyField(Delegate, blank=True)
 
     valid_choices = models.IntegerField(default=1)
+    min_choices = models.IntegerField(default=0)
     add_empty_lines = models.BooleanField(default=False)
     allow_intermediate = models.BooleanField(default=True)
+    display_sections = models.BooleanField(default=True)
 
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
@@ -97,6 +99,9 @@ class Votation(models.Model):
 
     def vote_count(self):
         return self.vote_set.filter(voteset__checked=True).count()
+
+    def voter_count(self):
+        return self.voteset_set.count()
 
     def absolute_majority(self):
         return int(self.vote_set.filter(voteset__checked=True).count() / self.valid_choices / 2) + 1

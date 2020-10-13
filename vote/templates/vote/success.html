@@ -6,7 +6,12 @@
 {% block content %}
 <h1>{% trans 'Erfolgreich abgestimmt' %}</h1>
 <p>
-  {% trans 'Deine Stimme:' %} {% for option in options %}{{option}}{% endfor %}
+  {% trans 'Deine Stimme:' %}
+  <ul>
+  {% for option in options %}
+  <li>{{option}}</li>
+  {% endfor %}
+  </ul>
 </p>
 
 <a href="{{votation.get_absolute_url}}">

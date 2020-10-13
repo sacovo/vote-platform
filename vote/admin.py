@@ -183,7 +183,8 @@ class VotationAdmin(admin.ModelAdmin):
 
     fields = [
         'title', 'description', 'options',
-        'valid_choices', 'add_empty_lines', 'allow_intermediate',
+        'valid_choices', 'min_choices', 'add_empty_lines',
+        'allow_intermediate', 'display_sections',
         'start_date', 'end_date', 'block'
     ]
 

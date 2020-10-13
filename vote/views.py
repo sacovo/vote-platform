@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.db import transaction
 
 from vote import models
 from vote.forms import VoteForm
@@ -22,8 +23,9 @@ def votation_detail(request, pk):
     })
 
 
+@transaction.atomic
 def vote_action(request, pk):
-    votation = get_object_or_404(models.Votation, pk=pk)
+    votation = models.Votation.objects.select_for_update().get(pk=pk)
     form = VoteForm(votation=votation)
 
     if request.method == 'POST':

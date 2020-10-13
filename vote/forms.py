@@ -62,6 +62,11 @@ class VoteForm(forms.Form):
                 f'Only select {self.votation.valid_choices} options'
             )
 
+        if len(options) < self.votation.min_choices:
+            raise forms.ValidationError(
+                f'At least {self.votation.min_choices} options required'
+            )
+
 
         if self.votation.vote_set.filter(secret=secret).exists():
             raise forms.ValidationError(

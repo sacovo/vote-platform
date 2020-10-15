@@ -12,7 +12,7 @@ from django.urls import path
 from django.conf import settings
 from django.utils import timezone
 
-from vote import models
+from vote import models, tasks
 
 # Register your models here.
 
@@ -51,19 +51,6 @@ def export_voted_delegates(request, votation):
     return response
 
 
-
-def send_secret_to(delegate, secret):
-    send_mail(
-        config.SUBJECT,
-        config.MAIL_TEXT.format(
-            secret=secret,
-            first_name=delegate.first_name,
-        ),
-        config.DEFAULT_FROM_EMAIL,
-        [delegate.email],
-    )
-
-
 def new_codes(request, queryset):
     codes = []
     for delegate in queryset:
@@ -74,7 +61,7 @@ def new_codes(request, queryset):
             'code': f'{secret[:10]}...{secret[-10:]}',
             'section': delegate.section,
         })
-        send_secret_to(delegate, secret)
+        tasks.send_secret_to.delay(delegate.pk, secret)
     messages.add_message(
         request,
         messages.INFO,

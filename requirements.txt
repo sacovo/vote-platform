@@ -2,3 +2,6 @@ django-constance
 Django
 psycopg2-binary
 redis
+celery<5.0
+redis
+django-celery-results

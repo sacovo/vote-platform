@@ -19,6 +19,12 @@ services:
   redis:
     image: redis
     expose:
-      - 6379
+      - 6ERROR celery:
+    build: .
+    command: celery -A vote worker --loglevel DEBUG
+    volumes:
+      - .:/usr/src/app/
+    env_file:
+      - ./.env.dev
 volumes:
   postgres_data:

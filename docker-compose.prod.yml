@@ -27,6 +27,11 @@ services:
     image: redis
     expose:
       - 6379
+  celery:
+    build: .
+    command: celery -A vote worker --loglevel ERROR
+    env_file:
+      - ./.env.prod
   nginx:
     build: ./nginx
     volumes:

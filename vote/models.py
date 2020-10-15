@@ -17,6 +17,7 @@ def public_view(secret):
 def generate_password():
     return make_password(secrets.token_urlsafe(40))
 
+
 class Section(models.Model):
     name = models.CharField(max_length=180)
 
@@ -76,6 +77,7 @@ class Votation(models.Model):
             others = self.vote_set.filter(voteset__checked=True).exclude(vote__in=self.get_options()).values_list('vote', flat=True).distinct()
             for other in others:
                 yield other, self.count_votes(other)
+        yield _("Leer"), self.count_votes('-')
 
     def state(self):
         if self.start_date > timezone.now():
@@ -98,13 +100,13 @@ class Votation(models.Model):
         return self.vote_set.filter(voteset__checked=True)
 
     def vote_count(self):
-        return self.vote_set.filter(voteset__checked=True).count()
+        return self.vote_set.filter(voteset__checked=True).exclude(vote='-').count()
 
     def voter_count(self):
         return self.voteset_set.count()
 
     def absolute_majority(self):
-        return int(self.vote_set.filter(voteset__checked=True).count() / self.valid_choices / 2) + 1
+        return int(self.vote_set.filter(voteset__checked=True).exclude(vote='-').count() / self.valid_choices / 2) + 1
 
     def __str__(self):
         return self.title

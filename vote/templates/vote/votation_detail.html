@@ -17,15 +17,19 @@
 </a>
 </p>
 {% endif %}
+{% if votation.is_closed and votation.show_end_results or votation.allow_intermediate or request.user.is_authenticated %}
 {% if votation.is_closed %}
 <h2>{% trans 'Definitive Resultate' %}</h2>
 {% else %}
 <h2>{% trans 'Vorläufige Resultate' %}</h2>
 {% endif %}
-{% if votation.is_closed or votation.allow_intermediate %}
 <h3>{% trans 'total' %}</h3>
 <table class="results">
   <tbody>
+    <tr>
+      <th>{% trans 'Eingegangene Stimmen' %}</th>
+      <td>{{votation.total_votes_count}}</th>
+    </tr>
     {% for result in votation.get_results %}
     <tr>
       <th>{{result.0}}</th>
@@ -33,21 +37,22 @@
     </tr>
     {% endfor %}
     <tr>
-      <th>{% trans 'Total Stimmen' %}</th>
+      <th>{% trans 'Massgebende Stimmen' %}</th>
       <td>{{votation.vote_count }}</td>
     </tr>
+
     <tr>
       <th>{% trans 'Total Stimmende' %}</th>
       <td>{{votation.voter_count }}</td>
     </tr>
+    {% if votation.show_absolute_majority %}
     <tr>
       <th>{% trans 'Absolutes Mehr' %}</th>
       <td>{{votation.absolute_majority}}</td>
+    </tr>
+    {% endif %}
   </tbody>
 </table>
-{% else %}
--
-{% endif %}
 <h3>{% trans 'Stimmen' %}</h3>
 <label for="filterCode">
   {% trans 'Nach Code suchen' %}
@@ -85,11 +90,23 @@
   </tbody>
 </table>
 <p>
+
+{% else %}
+<p>
+-
+</p>
+
+{% endif %}
 <a href="{% url 'votation-list' %}">
   {% trans 'Zurück zu allen Abstimmungen' %} 
 </a>
 </p>
 <script>
+  $('#votes').DataTable({
+    dom: "t",
+    pageLength: -1,
+  });
+
   function filterTableCodes(){
     // Declare variables
     var input, filter, table, tr, td, i, txtValue;

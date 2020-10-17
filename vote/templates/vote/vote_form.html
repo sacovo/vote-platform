@@ -9,6 +9,9 @@
 <h1>{{votation.title}}</h1>
 <h2>{% trans 'Abstimmen' %}</h2>
 <form action="" method="post" id="vote-form">
+  {% if wrong_code %}
+  {% trans 'Falscher code.' %}
+  {% endif %}
   {% csrf_token %}
   {{form}}
   <div class="buttons">

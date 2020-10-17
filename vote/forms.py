@@ -26,6 +26,7 @@ class VoteForm(forms.Form):
         options = cleaned_data.get('options', list())
         cleaned_data['other'] = False
 
+
         if self.votation.is_closed():
             raise forms.ValidationError(
                 'Votation closed!'
@@ -39,11 +40,6 @@ class VoteForm(forms.Form):
         delegate = models.Delegate.objects.get(
             email__iexact=email
         )
-
-        if not check_password(secret, delegate.secret):
-            raise forms.ValidationError(
-                'Authentication failed!'
-            )
 
         if len(list(option for option in options if option not in self.votation.get_options())) > 0:
             raise forms.ValidationError(

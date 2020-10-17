@@ -139,3 +139,6 @@ table#votes {
 .hide-inputs .show {
   display: block;
 }
+table.dataTable thead .sorting {
+  white-space: nowrap;
+}

@@ -7,7 +7,7 @@
 
 {% block content %}
 <h1>{% trans 'Abstimmungen' %}</h1>
-<table>
+<table id="votations">
   <thead>
     <tr>
       <th>
@@ -43,4 +43,11 @@
     {% endfor %}
   </tbody>
 </table>
+  <script>
+    $('#votations').DataTable({
+      dom: "t",
+      pageLength: -1,
+      bSort: false,
+    });
+  </script>
 {% endblock %}

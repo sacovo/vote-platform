@@ -171,7 +171,7 @@ class VotationAdmin(admin.ModelAdmin):
     fields = [
         'title', 'description', 'options',
         'valid_choices', 'min_choices', 'add_empty_lines',
-        'allow_intermediate', 'display_sections',
+        'allow_intermediate', 'display_sections', 'show_absolute_majority', 'show_end_results',
         'start_date', 'end_date', 'block'
     ]
 
@@ -222,7 +222,8 @@ class VoteAdmin(admin.ModelAdmin):
 
 
 class VoteInline(admin.TabularInline):
-    fields = ['vote']
+    fields = ['vote', 'secret']
+    readonly_fields = ['secret']
     model = models.Vote
     extra = 0
 
@@ -234,3 +235,7 @@ class VoteSetAdmin(admin.ModelAdmin):
     list_filter = ['votation', 'checked']
 
     list_editable = ['checked']
+
+    search_fields = [
+        'vote__secret'
+    ]

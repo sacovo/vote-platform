@@ -52,6 +52,8 @@ class Votation(models.Model):
     add_empty_lines = models.BooleanField(default=False)
     allow_intermediate = models.BooleanField(default=True)
     display_sections = models.BooleanField(default=True)
+    show_absolute_majority = models.BooleanField(default=True)
+    show_end_results = models.BooleanField(default=False)
 
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
@@ -77,7 +79,9 @@ class Votation(models.Model):
             others = self.vote_set.filter(voteset__checked=True).exclude(vote__in=self.get_options()).values_list('vote', flat=True).distinct()
             for other in others:
                 yield other, self.count_votes(other)
-        yield _("Leer"), self.count_votes('-')
+
+        if self.min_choices == 0:
+            yield _("Leer"), self.voter_count() * self.valid_choices - self.vote_set.exclude(vote='-').count()
 
     def state(self):
         if self.start_date > timezone.now():
@@ -85,6 +89,9 @@ class Votation(models.Model):
         if self.end_date > timezone.now():
             return _("Offen")
         return _("Abgeschlossen")
+
+    def total_votes_count(self):
+        return self.voter_count() * self.valid_choices
 
     def is_closed(self):
         return self.end_date < timezone.now()

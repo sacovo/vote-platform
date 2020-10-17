@@ -5,6 +5,16 @@
 {{votation.title}}
 {% endblock %}
 
+{% block style %}
+{% for result in votation.get_results %}
+<style>
+.{{result.0|slugify}}::after {
+  content: "{{result.0}}";
+}
+</style>
+{% endfor %}
+{% endblock %}
+
 {% block content %}
 <h1>{{votation.title}}</h1>
 <p>
@@ -53,6 +63,11 @@
     {% endif %}
   </tbody>
 </table>
+{% else %}
+<p>
+-
+</p>
+{% endif %}
 <h3>{% trans 'Stimmen' %}</h3>
 <label for="filterCode">
   {% trans 'Nach Code suchen' %}
@@ -84,19 +99,12 @@
       {% if votation.display_sections %}
       <td>{{vote.section}}</td>
       {% endif %}
-      <td>{{vote.vote}}</td>
+      <td class="{{vote.vote|slugify}}"></td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
 <p>
-
-{% else %}
-<p>
--
-</p>
-
-{% endif %}
 <a href="{% url 'votation-list' %}">
   {% trans 'Zurück zu allen Abstimmungen' %} 
 </a>

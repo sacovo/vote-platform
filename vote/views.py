@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.contrib.auth.hashers import check_password
+from django.utils.translation import ugettext as _
 from django.db import transaction
 
 from django.http.response import HttpResponse
@@ -32,15 +33,25 @@ def vote_action(request, pk):
         secret = request.POST.get('code', '-').strip()
         email = request.POST.get('email', '')
 
-        delegate = models.Delegate.objects.get(email__iexact=email)
+        delegate = models.Delegate.objects.filter(email__iexact=email)
 
-        if not check_password(secret, delegate.secret):
+        if not delegate.exists():
             votation = models.Votation.objects.get(pk=pk)
-            form = VoteForm(votation=votation)
+            form = VoteForm(request.POST, votation=votation)
             return render(request, 'vote/vote_form.html', {
                 'form': form,
                 'votation': votation,
-                'wrong_code': True,
+            })
+
+        delegate = delegate[0]
+
+        if not check_password(secret, delegate.secret):
+            votation = models.Votation.objects.get(pk=pk)
+            form = VoteForm(request.POST, votation=votation)
+            return render(request, 'vote/vote_form.html', {
+                'form': form,
+                'votation': votation,
+                'error_code': _("Wrong code."),
             })
 
     with transaction.atomic():

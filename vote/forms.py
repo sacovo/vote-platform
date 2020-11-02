@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.text import slugify
 from django.utils.translation import gettext as _
 from django.contrib.auth.hashers import check_password
 
@@ -18,6 +19,12 @@ class VoteForm(forms.Form):
         if self.votation.add_empty_lines:
             for i in range(self.votation.valid_choices):
                 self.fields[f'add_{i}'] = forms.CharField(label=_(f"Freie Linie {i+1}"), required=False)
+
+        if self.votation.counted_votation:
+            del self.fields['options']
+            for choice, name in self.votation.get_choices():
+                slug = slugify(choice)
+                self.fields[slug] = forms.IntegerField(label=choice, required=True)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -45,6 +52,10 @@ class VoteForm(forms.Form):
             raise forms.ValidationError(
                 'Invalid option!'
             )
+
+        if self.votation.counted_votation:
+            pass #TODO: Check that every number was taken
+
 
         if self.votation.add_empty_lines:
             for i in range(self.votation.valid_choices):

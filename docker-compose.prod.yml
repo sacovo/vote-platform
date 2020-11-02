@@ -37,8 +37,8 @@ services:
     volumes:
       - static_volume:/home/app/web/storage/static/
       - media_volume:/home/app/web/storage/media/
-    expose:
-      - 80
+    ports:
+      - 80:80
     restart: always
     networks:
       - web

@@ -19,7 +19,8 @@ services:
   redis:
     image: redis
     expose:
-      - 6ERROR celery:
+      - 6379
+  celery:
     build: .
     command: celery -A vote worker --loglevel DEBUG
     volumes:

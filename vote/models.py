@@ -59,6 +59,7 @@ class Votation(models.Model):
     end_date = models.DateTimeField()
 
     block = models.CharField(max_length=20)
+    counted_votation = models.BooleanField(default=False)
 
     id = models.UUIDField(
         primary_key=True,
@@ -137,6 +138,7 @@ class Vote(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     vote = models.CharField(max_length=80)
+    count = models.IntegerField(default=1)
 
     section = models.ForeignKey(Section, models.CASCADE)
     voteset = models.ForeignKey("VoteSet", models.CASCADE, blank=True, null=True)

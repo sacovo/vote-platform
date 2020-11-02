@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'constance',
     'vote',
-    'django_celery_results',
 ]
 
 CONSTANCE_CONFIG = {
@@ -164,5 +163,4 @@ DEFAULT_FROM_EMAIL = os.environ.get('FROM_EMAIL', 'webmaster@localhost')
 SUBJECT = os.environ.get('SUBJECT', "Dein Identifikationscode | Ton code d’identification | Il tuo codice di identificazione")
 
 CELERY_BROKER_URL = "redis://redis:6379"
-CELERY_RESULT_BACKEND = "django-db"
 CELERY_CACHE_BACKEND = "django-cache"

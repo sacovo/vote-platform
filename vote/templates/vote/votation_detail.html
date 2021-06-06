@@ -43,7 +43,7 @@
     {% for result in votation.get_results %}
     <tr>
       <th>{{result.0}}</th>
-      <td>{{result.1}}</th>
+      <td>{{result.1|default:"-"}}</th>
     </tr>
     {% endfor %}
     <tr>
@@ -53,7 +53,7 @@
 
     <tr>
       <th>{% trans 'Total Stimmende' %}</th>
-      <td>{{votation.voter_count }}</td>
+      <td>{{votation.voter_count|default:"-" }}</td>
     </tr>
     {% if votation.show_absolute_majority %}
     <tr>
@@ -90,6 +90,9 @@
       <th>{% trans 'Sektion' %}</th>
       {% endif %}
       <th>{% trans 'Wahl' %}</th>
+      {% if votation.counted_votation %}
+      <th>{% trans 'Punkte' %}</th>
+      {% endif %}
     </tr>
   </thead>
   <tbody>
@@ -100,6 +103,9 @@
       <td>{{vote.section}}</td>
       {% endif %}
       <td class="{{vote.vote|slugify}}"></td>
+      {% if votation.counted_votation %}
+      <td>{{vote.count}}</td>
+      {% endif %}
     </tr>
     {% endfor %}
   </tbody>

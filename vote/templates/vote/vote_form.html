@@ -14,19 +14,39 @@
   {% endif %}
   {% csrf_token %}
   {{form}}
+  {% if votation.counted_votation %}
+  <ul id="ranking">
+  {% for option in votation.get_options %}
+  <li data-id="{{option}}">{{option}}</li>
+  {% endfor %}
+  </ul>
+  {% endif %}
   <div class="buttons">
-  <input type="submit" value="{% trans 'Absenden' %}">
+    <input type="submit" value="{% trans 'Absenden' %}">
   </div>
 </form>
-  <a href="{{votation.get_absolute_url}}">{% trans 'Zurück' %}</a>
+<a href="{{votation.get_absolute_url}}">{% trans 'Zurück' %}</a>
 
-  <script> 
-    document.getElementById('id_code').setAttribute('value', sessionStorage.getItem('secret') || '');
+<script> 
+  document.getElementById('id_code').setAttribute('value', sessionStorage.getItem('secret') || '');
     document.getElementById('id_email').setAttribute('value', sessionStorage.getItem('email') || '');
 
     document.getElementById('vote-form').addEventListener('submit', () => {
-      sessionStorage.setItem('email', document.getElementById('id_email').value);
-      sessionStorage.setItem('secret', document.getElementById('id_code').value);
-    });
-  </script>
-  {% endblock %}
+        sessionStorage.setItem('email', document.getElementById('id_email').value);
+        sessionStorage.setItem('secret', document.getElementById('id_code').value);
+      });
+</script>
+{% if votation.counted_votation %}
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<script>
+  const options = document.getElementById('id_ordered_input').value.split("\n");
+    Sortable.create(ranking, {
+        onSort: function(evt) {
+            console.log(evt, this);
+            id_ordered_input.value = this.toArray().join('\n');
+          }
+      });
+
+</script>
+{% endif %}
+{% endblock %}

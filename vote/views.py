@@ -14,9 +14,8 @@ from vote.forms import VoteForm
 def votation_list_view(request):
     votations = models.Votation.objects.all()
 
-    return render(request, 'vote/votation_list.html',{
-        'votation_list': votations
-    })
+    return render(request, 'vote/votation_list.html',
+                  {'votation_list': votations})
 
 
 def votation_detail(request, pk):
@@ -48,11 +47,12 @@ def vote_action(request, pk):
         if not check_password(secret, delegate.secret):
             votation = models.Votation.objects.get(pk=pk)
             form = VoteForm(request.POST, votation=votation)
-            return render(request, 'vote/vote_form.html', {
-                'form': form,
-                'votation': votation,
-                'error_code': _("Wrong code."),
-            })
+            return render(
+                request, 'vote/vote_form.html', {
+                    'form': form,
+                    'votation': votation,
+                    'error_code': _("Wrong code."),
+                })
 
     with transaction.atomic():
 
@@ -64,16 +64,29 @@ def vote_action(request, pk):
 
             if form.is_valid() and request.POST.get('confirm') == '1':
                 options = form.cleaned_data['options']
-                voteset = models.VoteSet.objects.create(votation=votation, checked=not form.cleaned_data['other'])
+                voteset = models.VoteSet.objects.create(
+                    votation=votation, checked=not form.cleaned_data['other'])
 
-                for option in options:
-                    models.Vote.objects.create(
-                        votation=votation,
-                        vote=option,
-                        secret=form.cleaned_data['code'],
-                        section=form.cleaned_data['delegate'].section,
-                        voteset=voteset,
-                    )
+                if votation.counted_votation:
+                    total = len(options)
+                    for i, option in options:
+                        models.Vote.objects.create(
+                            votation=votation,
+                            vote=option,
+                            count=total - i + 1,
+                            secret=form.cleaned_data['code'],
+                            section=form.cleaned_data['delegate'].section,
+                            voteset=voteset,
+                        )
+                else:
+                    for option in options:
+                        models.Vote.objects.create(
+                            votation=votation,
+                            vote=option,
+                            secret=form.cleaned_data['code'],
+                            section=form.cleaned_data['delegate'].section,
+                            voteset=voteset,
+                        )
 
                 if len(options) == 0:
                     models.Vote.objects.create(
@@ -91,12 +104,18 @@ def vote_action(request, pk):
                 })
 
             if form.is_valid():
-                form.fields['options'].widget.attrs['readonly'] = "readonly"
-                return render(request, 'vote/confirm.html', {
-                    'data': form.cleaned_data,
-                    'form': form,
-                    'votation': votation,
-                })
+                if votation.counted_votation:
+                    form.fields['ordered_input'].widget.attrs[
+                        'readonly'] = "readonly"
+                else:
+                    form.fields['options'].widget.attrs[
+                        'readonly'] = "readonly"
+                return render(
+                    request, 'vote/confirm.html', {
+                        'data': form.cleaned_data,
+                        'form': form,
+                        'votation': votation,
+                    })
 
     return render(request, 'vote/vote_form.html', {
         'form': form,

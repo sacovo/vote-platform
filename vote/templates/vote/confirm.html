@@ -12,9 +12,13 @@
   {% csrf_token %}
   {% trans 'Deine E-Mail:' %} {{form.email.value}}</br>
   {% trans 'Deine Stimme:'%}
-  <ul class="show">
+  <ul class="show" id="ranking">
     {% for option in data.options %}
+    {% if votation.counted_votation %}
+    <li>{{option.0}}. {{option.1}}</li>
+    {% else %}
     <li>{{option}}</li>
+    {% endif %}
     {% endfor %}
   </ul>
   {% for field in form %}

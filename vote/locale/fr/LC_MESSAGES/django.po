@@ -2,26 +2,30 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-30 16:07+0000\n"
+"POT-Creation-Date: 2020-11-20 10:59+0000\n"
 "PO-Revision-Date: 2020-05-29 10:41+0200\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: xls-to-po 1.0\n"
 
-#: vote/forms.py:20
+#: vote/forms.py:21
 msgid "Freie Linie {i+1}"
 msgstr ""
 
-#: vote/models.py:82
+#: vote/models.py:85
+msgid "Leer"
+msgstr "Vide"
+
+#: vote/models.py:89
 msgid "Geschlossen"
 msgstr "Fermé"
 
-#: vote/models.py:84
+#: vote/models.py:91
 msgid "Offen"
 msgstr "Ouvert"
 
-#: vote/models.py:85
+#: vote/models.py:92
 msgid "Abgeschlossen"
 msgstr "Terminé"
 
@@ -45,7 +49,7 @@ msgstr "Ton vote :"
 msgid "Abgabe bestätigen"
 msgstr "Confirmer le dépôt"
 
-#: vote/templates/vote/confirm.html:33 vote/templates/vote/vote_form.html:18
+#: vote/templates/vote/confirm.html:33 vote/templates/vote/vote_form.html:21
 msgid "Zurück"
 msgstr "Retour"
 
@@ -61,60 +65,68 @@ msgstr "Vote bien enregistré"
 msgid "Zur Abstimmung"
 msgstr "Vers la votation"
 
-#: vote/templates/vote/votation_detail.html:16
+#: vote/templates/vote/votation_detail.html:26
 #: vote/templates/vote/vote_form.html:10
 msgid "Abstimmen"
 msgstr "Voter"
 
-#: vote/templates/vote/votation_detail.html:21
+#: vote/templates/vote/votation_detail.html:32
 msgid "Definitive Resultate"
 msgstr "Résultats"
 
-#: vote/templates/vote/votation_detail.html:23
+#: vote/templates/vote/votation_detail.html:34
 msgid "Vorläufige Resultate"
 msgstr "Résultats"
 
-#: vote/templates/vote/votation_detail.html:26
+#: vote/templates/vote/votation_detail.html:36
 msgid "total"
 msgstr "Total"
 
-#: vote/templates/vote/votation_detail.html:36
-msgid "Total"
-msgstr "Total"
-
 #: vote/templates/vote/votation_detail.html:40
+msgid "Eingegangene Stimmen"
+msgstr "Bulletins rentrés :"
+
+#: vote/templates/vote/votation_detail.html:50
+msgid "Massgebende Stimmen"
+msgstr "Bulletins attends :"
+
+#: vote/templates/vote/votation_detail.html:55
+msgid "Total Stimmende"
+msgstr "Nombre de votant-e-s "
+
+#: vote/templates/vote/votation_detail.html:60
 msgid "Absolutes Mehr"
 msgstr "Majorité absolue"
 
-#: vote/templates/vote/votation_detail.html:47
+#: vote/templates/vote/votation_detail.html:71
 msgid "Stimmen"
 msgstr "Voix"
 
-#: vote/templates/vote/votation_detail.html:49
+#: vote/templates/vote/votation_detail.html:73
 msgid "Nach Code suchen"
 msgstr "Chercher par code"
 
-#: vote/templates/vote/votation_detail.html:52
+#: vote/templates/vote/votation_detail.html:76
 msgid "Nur den Anfang deines Codes eingeben"
 msgstr "N'entrez que le début de votre code"
 
-#: vote/templates/vote/votation_detail.html:56
+#: vote/templates/vote/votation_detail.html:80
 msgid "Nach Sektion suchen"
 msgstr "Chercher par section"
 
-#: vote/templates/vote/votation_detail.html:64
+#: vote/templates/vote/votation_detail.html:88
 msgid "Code"
 msgstr "code"
 
-#: vote/templates/vote/votation_detail.html:66
+#: vote/templates/vote/votation_detail.html:90
 msgid "Sektion"
 msgstr "section"
 
-#: vote/templates/vote/votation_detail.html:68
+#: vote/templates/vote/votation_detail.html:92
 msgid "Wahl"
 msgstr "choix"
 
-#: vote/templates/vote/votation_detail.html:85
+#: vote/templates/vote/votation_detail.html:109
 msgid "Zurück zu allen Abstimmungen"
 msgstr "Retour à tous les votes"
 
@@ -135,6 +147,13 @@ msgstr "Statut"
 msgid "Ende"
 msgstr "Fin"
 
-#: vote/templates/vote/vote_form.html:15
+#: vote/templates/vote/vote_form.html:18
 msgid "Absenden"
 msgstr "Envoyer"
+
+#: vote/views.py:54
+msgid "Wrong code."
+msgstr ""
+
+#~ msgid "Total"
+#~ msgstr "Total"

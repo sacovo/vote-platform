@@ -3,6 +3,7 @@ import secrets
 
 from django.contrib.auth.hashers import make_password
 from django.db import models
+from django.db.models.aggregates import Sum
 from django.shortcuts import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -61,11 +62,7 @@ class Votation(models.Model):
     block = models.CharField(max_length=20)
     counted_votation = models.BooleanField(default=False)
 
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     def get_options(self):
         return [x.strip() for x in self.options.split('\n')]
@@ -77,12 +74,15 @@ class Votation(models.Model):
         for option in self.get_options():
             yield option, self.count_votes(option)
         if self.add_empty_lines:
-            others = self.vote_set.filter(voteset__checked=True).exclude(vote__in=self.get_options()).values_list('vote', flat=True).distinct()
+            others = self.vote_set.filter(voteset__checked=True).exclude(
+                vote__in=self.get_options()).values_list('vote',
+                                                         flat=True).distinct()
             for other in others:
                 yield other, self.count_votes(other)
 
         if self.min_choices == 0:
-            yield _("Leer"), self.voter_count() * self.valid_choices - self.vote_set.exclude(vote='-').count()
+            yield _("Leer"), self.voter_count(
+            ) * self.valid_choices - self.vote_set.exclude(vote='-').count()
 
     def state(self):
         if self.start_date > timezone.now():
@@ -102,27 +102,30 @@ class Votation(models.Model):
                 self.start_date < timezone.now()
 
     def count_votes(self, option):
-        return self.vote_set.filter(vote=option, voteset__checked=True).count()
+        return self.vote_set.filter(
+            vote=option,
+            voteset__checked=True).aggregate(count=Sum("count"))['count']
 
     def checked_votes(self):
         return self.vote_set.filter(voteset__checked=True)
 
     def vote_count(self):
-        return self.vote_set.filter(voteset__checked=True).exclude(vote='-').count()
+        return self.vote_set.filter(voteset__checked=True).exclude(
+            vote='-').count()
 
     def voter_count(self):
         return self.voteset_set.count()
 
     def absolute_majority(self):
-        return int(self.vote_set.filter(voteset__checked=True).exclude(vote='-').count() / self.valid_choices / 2) + 1
+        return int(
+            self.vote_set.filter(voteset__checked=True).exclude(
+                vote='-').count() / self.valid_choices / 2) + 1
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return reverse(
-            'votation-detail', kwargs={'pk': self.pk}
-        )
+        return reverse('votation-detail', kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ['block', 'title']
@@ -130,7 +133,8 @@ class Votation(models.Model):
 
 class Vote(models.Model):
     votation = models.ForeignKey(
-        Votation, models.CASCADE,
+        Votation,
+        models.CASCADE,
     )
 
     secret = models.CharField(max_length=80)
@@ -141,7 +145,10 @@ class Vote(models.Model):
     count = models.IntegerField(default=1)
 
     section = models.ForeignKey(Section, models.CASCADE)
-    voteset = models.ForeignKey("VoteSet", models.CASCADE, blank=True, null=True)
+    voteset = models.ForeignKey("VoteSet",
+                                models.CASCADE,
+                                blank=True,
+                                null=True)
 
     def __str__(self):
         return f'{self.votation.title}: {self.vote}'
@@ -154,16 +161,13 @@ class Vote(models.Model):
 
 
 class VoteSet(models.Model):
-    uuid = models.UUIDField(
-        default=uuid.uuid4,
-        editable=False
-    )
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     votation = models.ForeignKey(Votation, models.CASCADE)
     checked = models.BooleanField(default=False)
 
     def votes(self):
-        return  '[' + ', '.join(self.vote_set.all().values_list('vote', flat=True)) + ']'
+        return '[' + ', '.join(self.vote_set.all().values_list(
+            'vote', flat=True)) + ']'
 
     def __str__(self):
         return self.votation.title + ": " + str(self.id)
-

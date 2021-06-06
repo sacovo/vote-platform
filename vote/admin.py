@@ -40,7 +40,8 @@ def export_voted_delegates(request, votation):
 
     writer.writerow(field_names)
     for obj in votation.voted.all():
-        writer.writerow([obj.section.name, obj.first_name, obj.last_name, obj.email])
+        writer.writerow(
+            [obj.section.name, obj.first_name, obj.last_name, obj.email])
     return response
 
 
@@ -54,9 +55,9 @@ def export_not_voted_delegates(request, votation):
     writer.writerow(field_names)
 
     for obj in models.Delegate.objects.exclude(
-        pk__in=votation.voted.all().values_list("pk", flat=True)
-    ):
-        writer.writerow([obj.section.name, obj.first_name, obj.last_name, obj.email])
+            pk__in=votation.voted.all().values_list("pk", flat=True)):
+        writer.writerow(
+            [obj.section.name, obj.first_name, obj.last_name, obj.email])
     return response
 
 
@@ -66,16 +67,13 @@ def new_codes(request, queryset):
         secret = secrets.token_urlsafe(40)
         delegate.secret = make_password(secret)
         delegate.save()
-        codes.append(
-            {
-                "code": f"{secret[:10]}...{secret[-10:]}",
-                "section": delegate.section,
-            }
-        )
+        codes.append({
+            "code": f"{secret[:10]}...{secret[-10:]}",
+            "section": delegate.section,
+        })
         tasks.send_secret_to.delay(delegate.pk, secret)
-    messages.add_message(
-        request, messages.INFO, f"{queryset.count()} new codes generated and sent."
-    )
+    messages.add_message(request, messages.INFO,
+                         f"{queryset.count()} new codes generated and sent.")
     return export_section_codes(request, codes)
 
 
@@ -111,14 +109,17 @@ class DelegateAdmin(admin.ModelAdmin):
 
     def import_delegates(self, request):
         if request.method == "POST":
-            reader = csv.reader(StringIO(request.FILES["csv_file"].read().decode()))
+            reader = csv.reader(
+                StringIO(request.FILES["csv_file"].read().decode()))
+            # section,first_name,last_name,email
             next(reader)
 
             for row in reader:
                 if len(row) < 4 or row[3] == "":
                     continue
 
-                section, _ = models.Section.objects.get_or_create(name=row[0].strip())
+                section, _ = models.Section.objects.get_or_create(
+                    name=row[0].strip())
                 models.Delegate.objects.get_or_create(
                     email=row[3].strip(),
                     defaults={
@@ -192,17 +193,15 @@ class VotationAdmin(admin.ModelAdmin):
             start_date=timezone.now(),
             end_date=timezone.now() + timezone.timedelta(minutes=30),
         )
-        messages.add_message(
-            request, messages.INFO, f"{queryset.count()} votations opened"
-        )
+        messages.add_message(request, messages.INFO,
+                             f"{queryset.count()} votations opened")
 
     def start_votations_new_code(self, request, queryset):
         self.start_votations(request, queryset)
         return new_codes(request, models.Delegate.objects.all())
 
     start_votations_new_code.short_description = (
-        "Start votations, create and send new codes"
-    )
+        "Start votations, create and send new codes")
 
     def end_votations(self, request, queryset):
         queryset.update(end_date=timezone.now())
@@ -226,14 +225,14 @@ class VoteAdmin(admin.ModelAdmin):
 
     search_fields = ["secret"]
 
-    readonly_fields = ["secret", "vote", "votation", "secret"]
+    readonly_fields = ["secret", "vote", "votation", "secret", "count"]
 
     list_filter = ["votation", "vote"]
 
 
 class VoteInline(admin.TabularInline):
-    fields = ["vote", "secret"]
-    readonly_fields = ["secret"]
+    fields = ["vote", "secret", "count"]
+    readonly_fields = ["secret", "count"]
     model = models.Vote
     extra = 0
 

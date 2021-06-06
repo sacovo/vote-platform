@@ -1,128 +1,116 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# This file was generated from messagesIT.xlsx
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-03 16:28+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
-"MIME-Version: 1.0\n"
+"PO-Revision-Date: 2020-12-22 18:13+0100\n"
+"Language: it\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: vote/models.py:69
+"Generated-By: xls-to-po 1.0\n"
+
+msgid "Freie Linie {i+1}"
+msgstr ""
+
+msgid "Leer"
+msgstr "Vuoto"
+
 msgid "Geschlossen"
-msgstr ""
+msgstr "Chiuso"
 
-#: vote/models.py:71
 msgid "Offen"
-msgstr ""
+msgstr "Aperto "
 
-#: vote/models.py:72
 msgid "Abgeschlossen"
-msgstr ""
+msgstr "Terminato"
 
-#: vote/templates/vote/confirm.html:5 vote/templates/vote/vote_form.html:5
 msgid "Stimme abgeben"
-msgstr ""
+msgstr "Votare"
 
-#: vote/templates/vote/confirm.html:10
 msgid "Stimme bestätigen"
-msgstr ""
+msgstr "Confermare il voto"
 
-#: vote/templates/vote/confirm.html:13
 msgid "Deine E-Mail:"
-msgstr ""
+msgstr "La tua E-mail"
 
-#: vote/templates/vote/confirm.html:14 vote/templates/vote/success.html:9
 msgid "Deine Stimme:"
-msgstr ""
+msgstr "Il tuo voto"
 
-#: vote/templates/vote/confirm.html:20
 msgid "Abgabe bestätigen"
-msgstr ""
+msgstr "Confermare la consegna"
 
-#: vote/templates/vote/confirm.html:24 vote/templates/vote/vote_form.html:18
 msgid "Zurück"
-msgstr ""
+msgstr "Indietro"
 
-#: vote/templates/vote/success.html:4
 msgid "Stimme erflogreich abgegeben"
-msgstr ""
+msgstr "Il tuo voto è stato trasmesso"
 
-#: vote/templates/vote/success.html:7
 msgid "Erfolgreich abgestimmt"
-msgstr ""
+msgstr "Il voto è registrato"
 
-#: vote/templates/vote/success.html:13
 msgid "Zur Abstimmung"
-msgstr ""
+msgstr "Alla votazione"
 
-#: vote/templates/vote/votation_detail.html:13
-#: vote/templates/vote/vote_form.html:10
 msgid "Abstimmen"
-msgstr ""
+msgstr "Votare"
 
-#: vote/templates/vote/votation_detail.html:18
 msgid "Definitive Resultate"
-msgstr ""
+msgstr "Risultati definitivi"
 
-#: vote/templates/vote/votation_detail.html:20
 msgid "Vorläufige Resultate"
-msgstr ""
+msgstr "Risultati parziali"
 
-#: vote/templates/vote/votation_detail.html:22
 msgid "total"
-msgstr ""
+msgstr "Totale"
 
-#: vote/templates/vote/votation_detail.html:32
-msgid "Total"
-msgstr ""
+msgid "Eingegangene Stimmen"
+msgstr "Voti espressi"
 
-#: vote/templates/vote/votation_detail.html:37
+msgid "Massgebende Stimmen"
+msgstr "Voti attesi"
+
+msgid "Total Stimmende"
+msgstr "Totale votanti"
+
+msgid "Absolutes Mehr"
+msgstr "Maggioranza assoluta"
+
 msgid "Stimmen"
-msgstr ""
+msgstr "Voti "
 
-#: vote/templates/vote/votation_detail.html:39
 msgid "Nach Code suchen"
-msgstr ""
+msgstr "Cerca per codice"
 
-#: vote/templates/vote/votation_detail.html:42
 msgid "Nur den Anfang deines Codes eingeben"
-msgstr ""
+msgstr "Inserisci l'inizio del codice"
 
-#: vote/templates/vote/votation_detail.html:45
 msgid "Nach Sektion suchen"
-msgstr ""
+msgstr "Cerca per sezione"
 
-#: vote/templates/vote/votation_detail.html:69
+msgid "Code"
+msgstr "Codice"
+
+msgid "Sektion"
+msgstr "Sezione"
+
+msgid "Wahl"
+msgstr "Scelta"
+
 msgid "Zurück zu allen Abstimmungen"
-msgstr ""
+msgstr "Torna a tutte le votazioni"
 
-#: vote/templates/vote/votation_list.html:5
-#: vote/templates/vote/votation_list.html:9
 msgid "Abstimmungen"
-msgstr ""
+msgstr "Votazioni"
 
-#: vote/templates/vote/votation_list.html:14
 msgid "Abstimmung"
-msgstr ""
+msgstr "Votazione"
 
-#: vote/templates/vote/votation_list.html:17
 msgid "Status"
-msgstr ""
+msgstr "Stato"
 
-#: vote/templates/vote/votation_list.html:20
 msgid "Ende"
-msgstr ""
+msgstr "Fine"
 
-#: vote/templates/vote/vote_form.html:15
 msgid "Absenden"
-msgstr ""
+msgstr "Spedire"
+
+msgid "Wrong code."
+msgstr "Codice errato"

@@ -20,4 +20,3 @@ def send_secret_to(delegate_pk, secret):
         config.DEFAULT_FROM_EMAIL,
         [delegate.email],
     )
-

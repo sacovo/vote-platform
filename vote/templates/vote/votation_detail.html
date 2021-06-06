@@ -5,16 +5,6 @@
 {{votation.title}}
 {% endblock %}
 
-{% block style %}
-{% for result in votation.get_results %}
-<style>
-.{{result.0|slugify}}::after {
-  content: "{{result.0}}";
-}
-</style>
-{% endfor %}
-{% endblock %}
-
 {% block content %}
 <h1>{{votation.title}}</h1>
 <p>
@@ -102,7 +92,7 @@
       {% if votation.display_sections %}
       <td>{{vote.section}}</td>
       {% endif %}
-      <td class="{{vote.vote|slugify}}"></td>
+      <td>{{vote.vote}}</td>
       {% if votation.counted_votation %}
       <td>{{vote.count}}</td>
       {% endif %}

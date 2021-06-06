@@ -10,14 +10,17 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='Delegate',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id',
+                 models.AutoField(auto_created=True,
+                                  primary_key=True,
+                                  serialize=False,
+                                  verbose_name='ID')),
                 ('first_name', models.CharField(max_length=180)),
                 ('last_name', models.CharField(max_length=180)),
                 ('birthday', models.DateField()),
@@ -28,7 +31,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Section',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id',
+                 models.AutoField(auto_created=True,
+                                  primary_key=True,
+                                  serialize=False,
+                                  verbose_name='ID')),
                 ('name', models.CharField(max_length=180)),
             ],
         ),
@@ -39,22 +46,35 @@ class Migration(migrations.Migration):
                 ('options', models.TextField()),
                 ('start_date', models.DateTimeField()),
                 ('end_date', models.DateTimeField()),
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ('id',
+                 models.UUIDField(default=uuid.uuid4,
+                                  editable=False,
+                                  primary_key=True,
+                                  serialize=False)),
             ],
         ),
         migrations.CreateModel(
             name='Vote',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id',
+                 models.AutoField(auto_created=True,
+                                  primary_key=True,
+                                  serialize=False,
+                                  verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('vote', models.CharField(max_length=12)),
-                ('delegate', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='vote.Delegate')),
-                ('votation', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='vote.Votation')),
+                ('delegate',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                   to='vote.Delegate')),
+                ('votation',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                   to='vote.Votation')),
             ],
         ),
         migrations.AddField(
             model_name='delegate',
             name='section',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='vote.Section'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    to='vote.Section'),
         ),
     ]

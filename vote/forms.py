@@ -59,7 +59,7 @@ class VoteForm(forms.Form):
             diff = set(sorted_options) ^ set(all_options)
             if len(diff) > 0:
                 raise forms.ValidationError(f"Option missing!")
-            options = list(enumerate(sorted_options, start=1), )
+            options = list(enumerate(sorted_options, start=1),)
 
         if self.votation.add_empty_lines:
             for i in range(self.votation.valid_choices):

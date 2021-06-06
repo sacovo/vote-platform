@@ -20,6 +20,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='delegate',
             name='secret',
-            field=models.CharField(default=vote.models.generate_password, max_length=100),
+            field=models.CharField(default=vote.models.generate_password,
+                                   max_length=100),
         ),
     ]

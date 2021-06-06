@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = os.environ.get("SECRET_KEY", 'changeme')
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -78,43 +76,52 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.environ.get("POSTGRES_DB", os.path.join(BASE_DIR, "db.sqlite3")),
-        "USER": os.environ.get("POSTGRES_USER", "user"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "password"),
-        "HOST": os.environ.get("SQL_HOST", "localhost"),
-        "PORT": os.environ.get("SQL_PORT", "5432"),
+        "ENGINE":
+            os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME":
+            os.environ.get("POSTGRES_DB", os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER":
+            os.environ.get("POSTGRES_USER", "user"),
+        "PASSWORD":
+            os.environ.get("POSTGRES_PASSWORD", "password"),
+        "HOST":
+            os.environ.get("SQL_HOST", "localhost"),
+        "PORT":
+            os.environ.get("SQL_PORT", "5432"),
     }
 }
 
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+            'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
 if DEBUG:
     AUTH_PASSWORD_VALIDATORS = []
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -136,7 +143,6 @@ CONSTANCE_REDIS_CONNECTION = {
     'port': 6379,
     'db': 0,
 }
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -160,7 +166,10 @@ EMAIL_HOST_USER = os.environ.get('SMTP_USER', 'user')
 EMAIL_HOST_PASSWORD = os.environ.get('SMTP_PASSWORD', 'pw')
 
 DEFAULT_FROM_EMAIL = os.environ.get('FROM_EMAIL', 'webmaster@localhost')
-SUBJECT = os.environ.get('SUBJECT', "Dein Identifikationscode | Ton code d’identification | Il tuo codice di identificazione")
+SUBJECT = os.environ.get(
+    'SUBJECT',
+    "Dein Identifikationscode | Ton code d’identification | Il tuo codice di identificazione"
+)
 
 CELERY_BROKER_URL = "redis://redis:6379"
 CELERY_CACHE_BACKEND = "django-cache"

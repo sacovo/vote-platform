@@ -108,14 +108,12 @@ def vote_action(request, pk):
                     form.fields['ordered_input'].widget.attrs[
                         'readonly'] = "readonly"
                 else:
-                    form.fields['options'].widget.attrs[
-                        'readonly'] = "readonly"
-                return render(
-                    request, 'vote/confirm.html', {
-                        'data': form.cleaned_data,
-                        'form': form,
-                        'votation': votation,
-                    })
+                    form.fields['options'].widget.attrs['readonly'] = "readonly"
+                return render(request, 'vote/confirm.html', {
+                    'data': form.cleaned_data,
+                    'form': form,
+                    'votation': votation,
+                })
 
     return render(request, 'vote/vote_form.html', {
         'form': form,

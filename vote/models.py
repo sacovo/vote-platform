@@ -166,8 +166,8 @@ class VoteSet(models.Model):
     checked = models.BooleanField(default=False)
 
     def votes(self):
-        return '[' + ', '.join(self.vote_set.all().values_list(
-            'vote', flat=True)) + ']'
+        return '[' + ', '.join(self.vote_set.all().values_list('vote',
+                                                               flat=True)) + ']'
 
     def __str__(self):
         return self.votation.title + ": " + str(self.id)

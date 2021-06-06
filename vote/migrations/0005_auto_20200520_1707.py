@@ -21,7 +21,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='vote',
             name='secret',
-            field=models.CharField(default='318ee924-7f2d-4f49-9d1d-8507df75153e', max_length=40),
+            field=models.CharField(
+                default='318ee924-7f2d-4f49-9d1d-8507df75153e', max_length=40),
             preserve_default=False,
         ),
     ]

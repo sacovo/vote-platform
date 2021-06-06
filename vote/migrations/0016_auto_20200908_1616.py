@@ -14,12 +14,19 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='VoteSet',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id',
+                 models.AutoField(auto_created=True,
+                                  primary_key=True,
+                                  serialize=False,
+                                  verbose_name='ID')),
             ],
         ),
         migrations.AddField(
             model_name='vote',
             name='voteset',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='vote.VoteSet'),
+            field=models.ForeignKey(blank=True,
+                                    null=True,
+                                    on_delete=django.db.models.deletion.CASCADE,
+                                    to='vote.VoteSet'),
         ),
     ]

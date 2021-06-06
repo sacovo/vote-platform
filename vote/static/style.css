@@ -146,13 +146,26 @@ table.dataTable thead .sorting {
 
 #ranking li {
   list-style: none;
-  padding: ;
   margin-left: 0;
   padding: 0.2em 0.8em;
   box-shadow: black 2px 2px 4px;
   margin-top: 0.2em;
+  cursor: move;
 }
 
 #ranking {
   padding-left: 0.6em;
+  counter-reset: ranking;
+}
+
+#ranking li::before {
+  counter-increment: ranking;
+  content: counter(ranking) ".";
+  margin-right: 0.3em;
+}
+
+#ranking li::before {
+  counter-increment: ranking;
+  content: counter(ranking) ".";
+  margin-right: 0.3em;
 }

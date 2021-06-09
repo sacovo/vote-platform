@@ -137,11 +137,11 @@ class Vote(models.Model):
         models.CASCADE,
     )
 
-    secret = models.CharField(max_length=80)
+    secret = models.CharField(max_length=240)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
-    vote = models.CharField(max_length=80)
+    vote = models.CharField(max_length=240)
     count = models.IntegerField(default=1)
 
     section = models.ForeignKey(Section, models.CASCADE)

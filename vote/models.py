@@ -49,12 +49,12 @@ class Votation(models.Model):
     voted = models.ManyToManyField(Delegate, blank=True)
 
     valid_choices = models.IntegerField(default=1)
-    min_choices = models.IntegerField(default=0)
+    min_choices = models.IntegerField(default=1)
     add_empty_lines = models.BooleanField(default=False)
-    allow_intermediate = models.BooleanField(default=True)
+    allow_intermediate = models.BooleanField(default=False)
     display_sections = models.BooleanField(default=True)
-    show_absolute_majority = models.BooleanField(default=True)
-    show_end_results = models.BooleanField(default=False)
+    show_absolute_majority = models.BooleanField(default=False)
+    show_end_results = models.BooleanField(default=True)
 
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()

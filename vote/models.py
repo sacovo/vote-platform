@@ -1,3 +1,4 @@
+from datetime import timedelta
 import uuid
 import secrets
 
@@ -17,6 +18,10 @@ def public_view(secret):
 
 def generate_password():
     return make_password(secrets.token_urlsafe(40))
+
+
+def future_date():
+    return timezone.now() + timedelta(days=100)
 
 
 class Section(models.Model):
@@ -56,8 +61,8 @@ class Votation(models.Model):
     show_absolute_majority = models.BooleanField(default=False)
     show_end_results = models.BooleanField(default=True)
 
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    start_date = models.DateTimeField(default=future_date)
+    end_date = models.DateTimeField(default=future_date)
 
     block = models.CharField(max_length=20)
     counted_votation = models.BooleanField(default=False)

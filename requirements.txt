@@ -5,4 +5,3 @@ redis
 celery
 redis
 django-celery-results
-click<8.0

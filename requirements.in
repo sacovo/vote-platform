@@ -1,0 +1,7 @@
+django-constance
+Django
+psycopg2-binary
+redis
+celery
+redis
+django-celery-results

@@ -172,6 +172,7 @@ class VotationAdmin(admin.ModelAdmin):
         "show_absolute_majority",
         "show_end_results",
         "counted_votation",
+        "hidden",
         "start_date",
         "end_date",
         "block",
@@ -186,12 +187,15 @@ class VotationAdmin(admin.ModelAdmin):
         "postpone_votations",
         "export_delegates",
         "not_voted_delegates",
+        "hide_votes",
+        "unhide_votes",
     ]
 
     def start_votations(self, request, queryset):
         queryset.update(
             start_date=timezone.now(),
             end_date=timezone.now() + timezone.timedelta(minutes=30),
+            hidden=False,
         )
         messages.add_message(request, messages.INFO,
                              f"{queryset.count()} votations opened")
@@ -217,6 +221,12 @@ class VotationAdmin(admin.ModelAdmin):
 
     def not_voted_delegates(self, request, queryset):
         return export_not_voted_delegates(request, queryset[0])
+
+    def hide_votes(self, request, queryset):
+        queryset.update(hidden=True)
+
+    def unhide_votes(self, request, queryset):
+        queryset.update(hidden=False)
 
 
 @admin.register(models.Vote)

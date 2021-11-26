@@ -69,6 +69,8 @@ class Votation(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
+    hidden = models.BooleanField(default=False)
+
     def get_options(self):
         return [x.strip() for x in self.options.split('\n')]
 

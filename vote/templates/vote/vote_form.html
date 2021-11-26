@@ -28,12 +28,15 @@
 <a href="{{votation.get_absolute_url}}">{% trans 'Zurück' %}</a>
 
 <script> 
-  document.getElementById('id_code').setAttribute('value', sessionStorage.getItem('secret') || '');
-    document.getElementById('id_email').setAttribute('value', sessionStorage.getItem('email') || '');
+  document.getElementById('id_code').setAttribute('value', sessionStorage.getItem('secret') || localStorage.getItem('secret')  || '');
+    document.getElementById('id_email').setAttribute('value', sessionStorage.getItem('email') || localStorage.getItem('email') || '');
 
     document.getElementById('vote-form').addEventListener('submit', () => {
         sessionStorage.setItem('email', document.getElementById('id_email').value);
         sessionStorage.setItem('secret', document.getElementById('id_code').value);
+
+        localStorage.setItem('email', document.getElementById('id_email').value);
+        localStorage.setItem('secret', document.getElementById('id_code').value);
       });
 </script>
 {% if votation.counted_votation %}

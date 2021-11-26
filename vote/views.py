@@ -12,7 +12,7 @@ from vote.forms import VoteForm
 
 
 def votation_list_view(request):
-    votations = models.Votation.objects.all()
+    votations = models.Votation.objects.filter(hidden=False)
 
     return render(request, 'vote/votation_list.html',
                   {'votation_list': votations})

@@ -20,5 +20,15 @@
 
   {% endblock %}
   </main>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    ['email', 'secret'].forEach((field) => {
+      const value = params.get(field);
+      if(value) {
+        localStorage.setItem(field, value);
+        sessionStorage.setItem(field, value);
+      }
+    });
+  </script>
 </body>
 </html>

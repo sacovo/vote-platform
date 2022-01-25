@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:slim-buster as builder
+FROM python:3.9-slim-buster as builder
 
 # set work directory
 WORKDIR /usr/src/app
@@ -12,10 +12,8 @@ ENV PYTHONUNBUFFERED 1
 # install dependencies
 COPY ./requirements.txt .
 RUN pip wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements.txt 
-COPY ./requirements.prod.txt .
-RUN pip wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements.prod.txt 
 
-FROM python:slim
+FROM python:3.9-slim
 
 # create directory for the app user
 # create the app user

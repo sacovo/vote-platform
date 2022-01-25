@@ -5,3 +5,5 @@ redis
 celery
 redis
 django-celery-results
+gunicorn
+uvicorn

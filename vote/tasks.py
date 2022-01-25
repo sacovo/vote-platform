@@ -16,6 +16,7 @@ def send_secret_to(delegate_pk, secret):
         config.MAIL_TEXT.format(
             secret=secret,
             first_name=delegate.first_name,
+            email=delegate.email,
         ),
         config.DEFAULT_FROM_EMAIL,
         [delegate.email],

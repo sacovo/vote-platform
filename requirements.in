@@ -1,5 +1,5 @@
 django-constance
-Django
+Django<4
 psycopg2-binary
 redis
 celery

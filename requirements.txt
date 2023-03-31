@@ -10,6 +10,8 @@ asgiref==3.5.0
     # via
     #   django
     #   uvicorn
+async-timeout==4.0.2
+    # via redis
 billiard==3.6.4.0
     # via celery
 celery==5.2.3
@@ -29,8 +31,6 @@ click-plugins==1.1.1
     # via celery
 click-repl==0.2.0
     # via celery
-deprecated==1.2.13
-    # via redis
 django==3.2.17
     # via -r requirements.in
 django-celery-results==2.4.0
@@ -43,19 +43,15 @@ h11==0.13.0
     # via uvicorn
 kombu==5.2.3
     # via celery
-packaging==21.3
-    # via redis
 prompt-toolkit==3.0.24
     # via click-repl
 psycopg2-binary==2.9.3
     # via -r requirements.in
-pyparsing==3.0.7
-    # via packaging
 pytz==2021.3
     # via
     #   celery
     #   django
-redis==4.1.1
+redis==4.4.4
     # via -r requirements.in
 six==1.16.0
     # via click-repl
@@ -70,8 +66,6 @@ vine==5.0.0
     #   kombu
 wcwidth==0.2.5
     # via prompt-toolkit
-wrapt==1.13.3
-    # via deprecated
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

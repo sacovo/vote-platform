@@ -59,7 +59,7 @@ redis==4.1.1
     # via -r requirements.in
 six==1.16.0
     # via click-repl
-sqlparse==0.4.2
+sqlparse==0.4.4
     # via django
 uvicorn==0.17.0.post1
     # via -r requirements.in

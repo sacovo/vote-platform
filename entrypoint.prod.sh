@@ -7,7 +7,6 @@ then
     while ! nc -z $SQL_HOST $SQL_PORT; do
       sleep 0.1
     done
-    python manage.py migrate --no-input
 
     echo "PostgreSQL started"
 fi

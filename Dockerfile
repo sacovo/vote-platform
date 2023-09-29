@@ -10,7 +10,7 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update && \
   apt-get install -y \
-    netcat
+  netcat-traditional
 
 # install dependencies
 RUN pip install --upgrade pip
@@ -20,6 +20,6 @@ RUN pip install -r requirements.txt
 # copy project
 COPY . /usr/src/app/
 RUN mkdir -p /usr/src/app/storage/media/ && \
-      mkdir -p /usr/src/app/storage/static/
+  mkdir -p /usr/src/app/storage/static/
 
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]

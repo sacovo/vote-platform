@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:3.10-slim-buster as builder
+FROM python:slim-buster as builder
 
 # set work directory
 WORKDIR /usr/src/app
@@ -13,7 +13,7 @@ ENV PYTHONUNBUFFERED 1
 COPY ./requirements.txt .
 RUN pip wheel --no-cache-dir --wheel-dir /usr/src/app/wheels -r requirements.txt 
 
-FROM python:3.10-slim
+FROM python:slim
 
 # create directory for the app user
 # create the app user
@@ -28,7 +28,7 @@ WORKDIR $APP_HOME
 
 # Deps
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
-  netcat
+  netcat-traditional
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
 RUN pip install --no-cache /wheels/*

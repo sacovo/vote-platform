@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vote', '0024_vote_count'),
+        ("vote", "0024_vote_count"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='vote',
-            name='secret',
+            model_name="vote",
+            name="secret",
             field=models.CharField(max_length=240),
         ),
         migrations.AlterField(
-            model_name='vote',
-            name='vote',
+            model_name="vote",
+            name="vote",
             field=models.CharField(max_length=240),
         ),
     ]

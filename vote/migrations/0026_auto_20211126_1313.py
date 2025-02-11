@@ -7,43 +7,43 @@ import vote.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vote', '0025_auto_20210609_1308'),
+        ("vote", "0025_auto_20210609_1308"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='votation',
-            name='hidden',
+            model_name="votation",
+            name="hidden",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='votation',
-            name='allow_intermediate',
+            model_name="votation",
+            name="allow_intermediate",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='votation',
-            name='end_date',
+            model_name="votation",
+            name="end_date",
             field=models.DateTimeField(default=vote.models.future_date),
         ),
         migrations.AlterField(
-            model_name='votation',
-            name='min_choices',
+            model_name="votation",
+            name="min_choices",
             field=models.IntegerField(default=1),
         ),
         migrations.AlterField(
-            model_name='votation',
-            name='show_absolute_majority',
+            model_name="votation",
+            name="show_absolute_majority",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='votation',
-            name='show_end_results',
+            model_name="votation",
+            name="show_end_results",
             field=models.BooleanField(default=True),
         ),
         migrations.AlterField(
-            model_name='votation',
-            name='start_date',
+            model_name="votation",
+            name="start_date",
             field=models.DateTimeField(default=vote.models.future_date),
         ),
     ]

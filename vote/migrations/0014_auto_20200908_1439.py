@@ -6,23 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vote', '0013_votation_voted'),
+        ("vote", "0013_votation_voted"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='votation',
-            name='add_empty_lines',
+            model_name="votation",
+            name="add_empty_lines",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='votation',
-            name='valid_choices',
+            model_name="votation",
+            name="valid_choices",
             field=models.IntegerField(default=1),
         ),
         migrations.AlterField(
-            model_name='vote',
-            name='vote',
+            model_name="vote",
+            name="vote",
             field=models.CharField(max_length=80),
         ),
     ]

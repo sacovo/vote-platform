@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vote', '0006_votation_block'),
+        ("vote", "0006_votation_block"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='votation',
-            options={'ordering': ['block', 'title']},
+            name="votation",
+            options={"ordering": ["block", "title"]},
         ),
     ]

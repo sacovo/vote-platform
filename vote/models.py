@@ -72,7 +72,7 @@ class Votation(models.Model):
     hidden = models.BooleanField(default=False)
 
     def get_options(self):
-        return [x.strip() for x in self.options.split('\n')]
+        return [x.strip() for x in self.options.split("\n")]
 
     def get_choices(self):
         return [(x, x) for x in self.get_options()]
@@ -81,15 +81,21 @@ class Votation(models.Model):
         for option in self.get_options():
             yield option, self.count_votes(option)
         if self.add_empty_lines:
-            others = self.vote_set.filter(voteset__checked=True).exclude(
-                vote__in=self.get_options()).values_list('vote',
-                                                         flat=True).distinct()
+            others = (
+                self.vote_set.filter(voteset__checked=True)
+                .exclude(vote__in=self.get_options())
+                .values_list("vote", flat=True)
+                .distinct()
+            )
             for other in others:
                 yield other, self.count_votes(other)
 
         if self.min_choices == 0:
-            yield _("Leer"), self.voter_count(
-            ) * self.valid_choices - self.vote_set.exclude(vote='-').count()
+            yield _(
+                "Leer"
+            ), self.voter_count() * self.valid_choices - self.vote_set.exclude(
+                vote="-"
+            ).count()
 
     def state(self):
         if self.start_date > timezone.now():
@@ -105,37 +111,40 @@ class Votation(models.Model):
         return self.end_date < timezone.now()
 
     def is_open(self):
-        return not self.is_closed() and\
-                self.start_date < timezone.now()
+        return not self.is_closed() and self.start_date < timezone.now()
 
     def count_votes(self, option):
-        return self.vote_set.filter(
-            vote=option,
-            voteset__checked=True).aggregate(count=Sum("count"))['count']
+        return self.vote_set.filter(vote=option, voteset__checked=True).aggregate(
+            count=Sum("count")
+        )["count"]
 
     def checked_votes(self):
         return self.vote_set.filter(voteset__checked=True)
 
     def vote_count(self):
-        return self.vote_set.filter(voteset__checked=True).exclude(
-            vote='-').count()
+        return self.vote_set.filter(voteset__checked=True).exclude(vote="-").count()
 
     def voter_count(self):
         return self.voteset_set.count()
 
     def absolute_majority(self):
-        return int(
-            self.vote_set.filter(voteset__checked=True).exclude(
-                vote='-').count() / self.valid_choices / 2) + 1
+        return (
+            int(
+                self.vote_set.filter(voteset__checked=True).exclude(vote="-").count()
+                / self.valid_choices
+                / 2
+            )
+            + 1
+        )
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('votation-detail', kwargs={'pk': self.pk})
+        return reverse("votation-detail", kwargs={"pk": self.pk})
 
     class Meta:
-        ordering = ['block', 'title']
+        ordering = ["block", "title"]
 
 
 class Vote(models.Model):
@@ -152,16 +161,13 @@ class Vote(models.Model):
     count = models.IntegerField(default=1)
 
     section = models.ForeignKey(Section, models.CASCADE)
-    voteset = models.ForeignKey("VoteSet",
-                                models.CASCADE,
-                                blank=True,
-                                null=True)
+    voteset = models.ForeignKey("VoteSet", models.CASCADE, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.votation.title}: {self.vote}'
+        return f"{self.votation.title}: {self.vote}"
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ["-created_at"]
 
     def public_view(self):
         return public_view(self.secret)
@@ -173,8 +179,7 @@ class VoteSet(models.Model):
     checked = models.BooleanField(default=False)
 
     def votes(self):
-        return '[' + ', '.join(self.vote_set.all().values_list('vote',
-                                                               flat=True)) + ']'
+        return "[" + ", ".join(self.vote_set.all().values_list("vote", flat=True)) + "]"
 
     def __str__(self):
         return self.votation.title + ": " + str(self.id)

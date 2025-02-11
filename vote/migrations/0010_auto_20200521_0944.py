@@ -8,19 +8,20 @@ import vote.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vote', '0009_vote_section'),
+        ("vote", "0009_vote_section"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='delegate',
-            name='phone',
+            model_name="delegate",
+            name="phone",
             field=models.CharField(blank=True, max_length=20),
         ),
         migrations.AlterField(
-            model_name='delegate',
-            name='secret',
-            field=models.CharField(default=vote.models.generate_password,
-                                   max_length=100),
+            model_name="delegate",
+            name="secret",
+            field=models.CharField(
+                default=vote.models.generate_password, max_length=100
+            ),
         ),
     ]

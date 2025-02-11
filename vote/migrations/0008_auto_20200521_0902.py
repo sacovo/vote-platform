@@ -8,22 +8,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vote', '0007_auto_20200520_1738'),
+        ("vote", "0007_auto_20200520_1738"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='vote',
-            name='delegate',
+            model_name="vote",
+            name="delegate",
         ),
         migrations.AlterField(
-            model_name='delegate',
-            name='secret',
+            model_name="delegate",
+            name="secret",
             field=models.CharField(default=uuid.uuid4, max_length=100),
         ),
         migrations.AlterField(
-            model_name='vote',
-            name='vote',
+            model_name="vote",
+            name="vote",
             field=models.CharField(max_length=40),
         ),
     ]

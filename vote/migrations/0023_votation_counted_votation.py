@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vote', '0022_votation_show_end_results'),
+        ("vote", "0022_votation_show_end_results"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='votation',
-            name='counted_votation',
+            model_name="votation",
+            name="counted_votation",
             field=models.BooleanField(default=False),
         ),
     ]

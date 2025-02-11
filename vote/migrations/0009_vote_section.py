@@ -7,16 +7,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vote', '0008_auto_20200521_0902'),
+        ("vote", "0008_auto_20200521_0902"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='vote',
-            name='section',
-            field=models.ForeignKey(default=1,
-                                    on_delete=django.db.models.deletion.CASCADE,
-                                    to='vote.Section'),
+            model_name="vote",
+            name="section",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="vote.Section",
+            ),
             preserve_default=False,
         ),
     ]

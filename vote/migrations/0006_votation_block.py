@@ -6,14 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vote', '0005_auto_20200520_1707'),
+        ("vote", "0005_auto_20200520_1707"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='votation',
-            name='block',
-            field=models.CharField(default='A', max_length=20),
+            model_name="votation",
+            name="block",
+            field=models.CharField(default="A", max_length=20),
             preserve_default=False,
         ),
     ]

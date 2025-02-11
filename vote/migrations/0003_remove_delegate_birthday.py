@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vote', '0002_delegate_secret'),
+        ("vote", "0002_delegate_secret"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='delegate',
-            name='birthday',
+            model_name="delegate",
+            name="birthday",
         ),
     ]

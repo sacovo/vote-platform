@@ -8,13 +8,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vote', '0001_initial'),
+        ("vote", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='delegate',
-            name='secret',
+            model_name="delegate",
+            name="secret",
             field=models.CharField(default=uuid.uuid4, max_length=40),
         ),
     ]

@@ -6,22 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vote', '0003_remove_delegate_birthday'),
+        ("vote", "0003_remove_delegate_birthday"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='delegate',
-            name='phone',
+            model_name="delegate",
+            name="phone",
         ),
         migrations.AddField(
-            model_name='delegate',
-            name='city',
+            model_name="delegate",
+            name="city",
             field=models.CharField(blank=True, max_length=120),
         ),
         migrations.AddField(
-            model_name='delegate',
-            name='street',
+            model_name="delegate",
+            name="street",
             field=models.CharField(blank=True, max_length=120),
         ),
     ]

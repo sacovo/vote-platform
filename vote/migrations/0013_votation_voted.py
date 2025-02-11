@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vote', '0012_votation_description'),
+        ("vote", "0012_votation_description"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='votation',
-            name='voted',
-            field=models.ManyToManyField(blank=True, to='vote.Delegate'),
+            model_name="votation",
+            name="voted",
+            field=models.ManyToManyField(blank=True, to="vote.Delegate"),
         ),
     ]

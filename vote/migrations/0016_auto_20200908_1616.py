@@ -7,26 +7,32 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('vote', '0015_votation_allow_intermediate'),
+        ("vote", "0015_votation_allow_intermediate"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='VoteSet',
+            name="VoteSet",
             fields=[
-                ('id',
-                 models.AutoField(auto_created=True,
-                                  primary_key=True,
-                                  serialize=False,
-                                  verbose_name='ID')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='vote',
-            name='voteset',
-            field=models.ForeignKey(blank=True,
-                                    null=True,
-                                    on_delete=django.db.models.deletion.CASCADE,
-                                    to='vote.VoteSet'),
+            model_name="vote",
+            name="voteset",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="vote.VoteSet",
+            ),
         ),
     ]

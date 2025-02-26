@@ -27,7 +27,7 @@ WORKDIR $APP_HOME
 
 # Deps
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
-  netcat-traditional
+  netcat-traditional gettext
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
 RUN pip install --no-cache /wheels/*
@@ -43,6 +43,8 @@ RUN chown -R app:app $APP_HOME
 
 # change to the app user
 USER app
+
+RUN python manage.py compilemessages
 
 # run entrypoint.prod.sh
 ENTRYPOINT ["/home/app/web/entrypoint.prod.sh"]
